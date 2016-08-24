@@ -22,7 +22,7 @@ d. How should k be chosen in practice?
 ####Q 冒泡排序
 Bubblesort is a popular sorting algorithm. It works by repeatedly swapping adjacent elements that are out of order.  
 ####A 
-冒泡排序C++实现代码  [BubbleSort](https://github.com/swananan/Wu-Algorithm.git/Data_Structures_and_Algorithms/Sort/bubblesort.h)  
+冒泡排序C++实现代码  [BubbleSort](https://github.com/swananan/Wu-Algorithm/blob/master/Data_Structures_and_Algorithms/Sort/bubblesort.h)  
  
 * a. 证明冒泡排序输出结果正确，我们需要确定输出数组是按升序排序，并且数组中的元素还是原来输入数组的元素
 * b. 按照书上循环不变式证明的三个步骤来即可
