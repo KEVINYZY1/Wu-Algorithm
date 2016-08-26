@@ -1,8 +1,8 @@
 #include<vector>
 using namespace std;
-class Solution {
+//方法1 归并排序中的合并步骤  时间复杂度并不符合要求
+class Solution1 {
 public:
-//归并排序
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         double result=0;
         if(nums1.empty()&&nums2.empty())
@@ -40,3 +40,5 @@ public:
         return result;
     }
 };
+
+//假如再将问题扩展一下，找的是两组数组中第k个元素，而不是中位数呢
