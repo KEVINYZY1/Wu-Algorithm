@@ -2,6 +2,7 @@
 #define _MERGESORT_H
 #include <vector>
 using namespace std;
+
 //归并排序
 //合并2个有序数组 nums[start……mid]和nums[mid+1……end]
 void combineArray(vector<int>&nums,int start,int mid,int end){
