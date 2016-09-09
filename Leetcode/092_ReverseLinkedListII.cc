@@ -27,7 +27,7 @@ public:
         }
         ListNode*prev=end->next;
         //重要！！！本来以为end->next是不会变的，结果测试不通过，必须要储存end—>next的值才行。
-        //但是为什么呢，我在循环中也没有影响到end指针的值，按理说，应该不会改变end->next
+        //容易出错，因为prev在循环中会改变end的值，所以说不能直接用end->next!=newHeadBetween来作为while循环终止条件
         //网上的解法是用for循环，m-n次循环即可。
         ListNode*tempEnd=end->next;
         ListNode*newHeadBetween=start->next;
