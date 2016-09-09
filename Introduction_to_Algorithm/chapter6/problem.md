@@ -52,4 +52,4 @@ c++实现代码 [code](https://github.com/swananan/Wu-Algorithm/blob/master/Data
 * c. 见代码
 * d. 见代码
 * e. 每次提取其中的最小元素，调用YOUNG-EXTRACT-MIN，共需调用n^2 次，而每次YOUNG-EXTRACT-MIN需要O(n+n)运行时间，故总的运行时间为O(n^3 )
-* f. [code](https://github.com/swananan/Wu-Algorithm/blob/master/Leetcode/074_Searcha2DMatrix.cc)
+* f. leetcode原题[code](https://github.com/swananan/Wu-Algorithm/blob/master/Leetcode/240_Searcha2DMatrixII.cc)
