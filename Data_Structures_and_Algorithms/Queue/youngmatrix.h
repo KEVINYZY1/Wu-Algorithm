@@ -98,29 +98,16 @@ template<class T>
 bool youngmatrix<T>::searchElement(vector<vector<T> >&s,T k){
     if(s[0][0]==INT_MAX)
         return false;
-    const int rows=s.size();
-    const int columns=s[0].size();
-    int low=0,high=rows-1;
-    int left=0,right=columns-1;
-    //先确定块
-    while(low<high){
-        int mid=low+(high-low)/2;
-        if(k<s[mid][left]){
-            high=mid-1;
+    int y=n-1;
+    int x=0;
+    while(x>=0&&y<m){
+        if(s[x][y]<k){
+            y--;
         }
-        else if(k>s[mid][right]){
-            low=mid+1;
+        else if(s[x][y]>k){
+            x++;
         }
-        else break;
-    }
-    int mid=low+(high-low)/2;
-    if(k<s[mid][left]||k>s[mid][right])return false;
-    //对块二分查找
-    while(left<=right){
-        int middle=left+(right-left)/2;
-        if(k==s[mid][middle])return true;
-        else if(k>s[mid][middle])left=middle+1;
-        else if(k<s[mid][middle])right=middle-1;
+        else return true;
     }
     return false;
 }
