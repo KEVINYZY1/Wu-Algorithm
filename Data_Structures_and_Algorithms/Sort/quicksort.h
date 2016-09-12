@@ -1,7 +1,7 @@
 #ifndef _QUICKSORT_H
 #define _QUICKSORT_H
 #include <vector>
-using namespace std
+using namespace std;
 //快速排序
 //分区函数，对nums[start……end-1]分区，选择第一个元素为主元，最后返回主元的下标
 int partition(vector<int>&nums,int start,int end){
@@ -16,6 +16,27 @@ int partition(vector<int>&nums,int start,int end){
     }
     swap(nums[pivotIndex],nums[storeIndex-1]);//这里storeIndex要减1
     return storeIndex-1;
+}
+//按算法导论所说，增加Hoare-Partition算法
+int hoarePartition(vector<int>&nums,int start,int end){
+    int pivot=nums[start];
+    start++;
+    end--;
+    while(true){
+        while(nums[start]<pivot){
+            start++;
+        }
+        while(nums[end]>pivot){
+            end--;
+        }
+        if(start>end){
+            return start;
+        }
+        else 
+            swap(nums[end],nums[start]);
+        start++;
+        end--;
+    }
 }
 void quickSort(vector<int>&nums,int start,int end){
     int pivotIndex=0;
