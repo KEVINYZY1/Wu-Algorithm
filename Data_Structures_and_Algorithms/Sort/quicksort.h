@@ -1,6 +1,8 @@
 #ifndef _QUICKSORT_H
 #define _QUICKSORT_H
 #include <vector>
+#include<utility>
+#include<random>
 using namespace std;
 //快速排序
 //分区函数，对nums[start……end-1]分区，选择第一个元素为主元，最后返回主元的下标
@@ -49,6 +51,45 @@ void quickSort(vector<int>&nums,int start,int end){
 void quickSort(vector<int>&nums){
     const int len=nums.size();
     quickSort(nums, 0, len);
+}
+
+//按算法导论第7章的思考题第二题
+//针对输入数组中存在重复元素的情况，对快速排序进行优化pair
+//分区函数，对nums[start……end-1]分区，选择第一个元素为主元，最后返回一个主元的范围下标q和t
+pair<int,int> repeatElementPartition(vector<int>&nums,int start,int end){
+    static default_random_engine e;//生成无符号随机数引擎
+    uniform_int_distribution<unsigned> u(start,end-1);//均匀分布类型
+    int piovtIndex=u(e);
+    int piovt=nums[piovtIndex];
+    swap(nums[piovtIndex],nums[start]);
+    int q,t;
+    start++;
+    q=start;
+    //先遍历一遍数组，把小于主元的全部放在[start+1,q-1]
+    for(int i=start;i<end-1;i++){
+        if(nums[i]<piovt){
+            swap(nums[i],nums[q]);
+            q++;
+        }
+    }
+    for(int i=q+1;i<end-1&&nums[i]==piovt;i++){
+        t=i;
+    }
+    t++;
+    for(int i=t+1;i<end-1;i++){
+        if(nums[i]==piovt){
+            swap(nums[i],nums[t]);
+            t++;
+        }
+    }
+    return make_pair(q,t);
+}
+void repeatElementQuickSort(vector<int>&nums,int start,int end){
+    if(start<end){
+        pair<int,int>s=repeatElementPartition(nums,start,end);
+        repeatElementQuickSort(nums,start,s.first+1);
+        repeatElementQuickSort(nums,s.second,end);
+    }
 }
 
 //随机化快速排序
