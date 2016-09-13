@@ -129,3 +129,54 @@ void randomizedQuickSort(vector<int>&nums){
     randomizedQuickSort(nums, 0, len);
 }
 #endif
+
+
+//fuzzysort，针对数组都处于一个模糊区间的排序。算法导论第七章思考题最后一题
+//假定输入元素的区间用pair<int,int>来表示
+//有点类似于针对重复元素的快速排序，把区间重合的元素当做相等元素来处理
+
+bool intersects(pair<int,int> a, pair<int,int> b) { return a.first <= b.second && b.first <= a.second; }
+bool before(pair<int,int> a, pair<int,int> b)     { return a.second < b.first; }
+bool after(pair<int,int> a, pair<int,int> b)      { return a.first > b.second; }
+pair<int,int> fuzzySortPartition(vector<pair<int,int> >&nums,int start,int end){
+    pair<int,int>piovt=nums[start];
+    start++;
+    int s=start,t;
+    //确定一个区间元素集合和主元piovt所有区间元素的公共区间（交集）
+    for (int i = s; i < end; i++) {
+        if (intersects(piovt, nums[i])) {
+            if (nums[i].first > piovt.first)
+                piovt.first = nums[i].first;
+            if (nums[i].second < piovt.second)
+                piovt.second = nums[i].second;
+        }
+    }
+    for (int i = s; i < end; i++) {
+        if (before(nums[i], piovt)) {
+            swap(nums[i], nums[s]);
+            s++;
+        }
+    }
+    for (int i = s; i < end; i++) {
+        if (before(nums[i], piovt)) {
+            swap(nums[i], nums[s]);
+            s++;
+        }
+    }
+    swap(nums[end-1],nums[s]);
+    for (int t = s+1, i=end-1; t <= i; ) {
+        if (intersects(nums[i], piovt)) {
+            swap(nums[i], nums[t]);
+            t++;
+        }
+        else i--;
+    }
+    return make_pair(s,t);
+}
+void fuzzySort(vector<pair<int,int> >&nums,int start,int end){
+    if(start<end){
+        pair<int,int>temp=fuzzySortPartition(nums,start,end);
+        fuzzySort(nums,start,temp.first);
+        fuzzySort(nums,temp.second,end);
+    }
+}
