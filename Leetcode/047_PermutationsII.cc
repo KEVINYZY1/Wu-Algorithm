@@ -17,10 +17,18 @@ private:
             return;
         }
         for (int k = low; k <= high; k++) {
+            int k;
+            for(k=low;k<i;k++)if(nums[k]==nums[i])break; 
+            if(k<i)continue;
+            swap(nums[low], nums[i]);
+            makePermutations(nums, low+1, high);
+            swap(nums[low], nums[i]);
+            /*
             if (low != k && nums[low] == nums[k]) continue;
             swap(nums[low], nums[k]);
             makePermutations(nums, low+1, high);
             //swap(nums[low], nums[k]);假如这样回溯回去，会出现很多重复的排列。
+            */
         }
     }
 };
