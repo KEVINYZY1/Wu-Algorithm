@@ -20,6 +20,7 @@ void countSort(vector<int>&nums){
         ++count[nums[i]];
     }
     //并非正统的计数排序
+    /*
     int k=0;
     for(int i=0;i<100;++i){
         while(count[i]>0){
@@ -27,6 +28,16 @@ void countSort(vector<int>&nums){
             --count[i];
         }
         if(k==len)break;
+    }*/
+    for (int i = 1; i < len; i++)
+    {
+       count[i]=count[i]+count[i-1]; 
+    }
+    vector<int>result(len,0);
+    //i从尾到头迭代，保证了计数排序的稳定性！！
+    for(int i=len-1;i>=0;i--){
+        result[count[nums[i]]]=nums[i];
+        count[nums[i]]--;
     }
 }
 #endif
