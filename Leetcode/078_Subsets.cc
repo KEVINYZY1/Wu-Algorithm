@@ -60,3 +60,51 @@ private:
         }
     }
 };
+
+//迭代
+class Solution3 {
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int>> allSets;
+        vector<int> sol;
+        allSets.push_back(sol);
+        sort(S.begin(), S.end());
+        for(int i=0; i<S.size(); i++) {
+            int n = allSets.size();
+            for(int j=0; j<n; j++) {
+                sol = allSets[j];
+                sol.push_back(S[i]);
+                allSets.push_back(sol);
+            }
+        }
+        return allSets;
+    }
+};
+
+//由于S[0: n-1]组成的每一个subset，可以看成是对是否包含S[i]的取舍。
+//S[i]只有两种状态，包含在特定subset内，或不包含。所以subset的数量总共有2^n个。
+//所以可以用0~2^n-1的二进制来表示一个subset。
+//二进制中每个0/1表示该位置的S[i]是否包括在当前subset中。
+
+class Solution4 {
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int>> allSets;
+        sort(S.begin(), S.end());
+        unsigned long long maxNum = pow(2, S.size()) - 1;
+        for(unsigned long long i=0; i<=maxNum; i++) 
+            allSets.push_back(num2subset(S, i));
+        return allSets;
+    }
+    
+    vector<int> num2subset(vector<int> &S, unsigned long long num) {
+        vector<int> sol;
+        int i=0;
+        while(num) {
+            if(num & 1) sol.push_back(S[i]);
+            num >>= 1;
+            i++;
+        }
+        return sol;
+    }
+};
