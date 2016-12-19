@@ -40,7 +40,8 @@ public:
         if(x==0)
             return 0;
         double res = 1, pre = 0;
-        while (res != pre) {
+        //while (res != pre) {//这里有点疑问，得执行多少次，才能一样，double类型的精度很高啊
+        while (abs(res-pre)>0.1) {
             pre = res;
             res = (res + x / res) / 2;
         }

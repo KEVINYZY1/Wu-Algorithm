@@ -61,7 +61,7 @@ public:
         }
         
         int wSize = words[0].length();
-        for (int start=0; start < wSize; start++) {
+    for (int start=0; start < wSize; start++) {
             int wCount=0;
             unordered_map<string, int> slidingWindow;
             for (int i=start; i+wSize<=s.length(); i+=wSize) {

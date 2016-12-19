@@ -16,7 +16,7 @@ private:
             rec.push_back(nums);
             return;
         }
-        for (int k = low; k <= high; k++) {
+        for (int i= low; i <= high; i++) {
             int k;
             for(k=low;k<i;k++)if(nums[k]==nums[i])break; 
             if(k<i)continue;

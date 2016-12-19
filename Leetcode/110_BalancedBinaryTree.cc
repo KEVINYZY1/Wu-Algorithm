@@ -32,3 +32,19 @@ private:
         return (leftDepth>rightDepth)?(leftDepth+1):(rightDepth+1);
     }
 };
+
+
+//相当于一个后续遍历
+class Solution2 {
+public:
+    bool isBalanced(TreeNode *root, int &height)  {  
+        if(!root)   
+            return true;  
+        int left=0,right=0;  
+        if(!isBalanced(root->left,left)) return false;  
+        if(!isBalanced(root->right,right)) return false;  
+        if(abs(left-right) > 1) return false;  
+        height = max(left,right) + 1;  
+        return true;  
+    }  
+};
