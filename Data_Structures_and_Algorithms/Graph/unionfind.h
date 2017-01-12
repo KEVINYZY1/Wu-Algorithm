@@ -27,8 +27,15 @@ class weightedQuickUnionUF{
         }
         int find (int p){
             assert(p<UF_SIZE);
+            int temp=p;
             while(uf_[p]!=p)
                 p=uf_[p];
+            //在这里路径压缩！！
+            while(temp != uf_[p]){
+                int tempId = uf_[temp];
+                uf_[temp] = uf_[p];
+                temp = tempId;
+            }
             return p;
         }
         void union (int p, int q){
@@ -37,33 +44,18 @@ class weightedQuickUnionUF{
             int qRoot=find(q);
             if(pRoot==qRoot)
                 return;
-            int allWeight=weight[p]+weight[q];
-            //
-            if(weight[p]<weight[q]){
-                while(uf_[p]!=p){
-                    weight[p]=allWeight;
-                    uf_[p]=qRoot;
-                    p=uf_[p];
-                }
-                while(uf_[q]!=q){
-                    weight[q]=allWeight;
-                    uf_[q]=pRoot;
-                    q=uf_[q];
-                }
+
+            int allWeight=weight_[pRoot]+weight_[qRoot];
+            //每次比较union大小，只比较根在weight_数组中的值
+            if(weight_[pRoot]<weight_[qRoot]){
+                uf_[pRoot]=qRoot;
+                weight_[qRoot]=allWeight;
             }
             else{
-                while(uf_[q]!=q){
-                    weight[q]=allWeight;//这里的权值也可以只更新根的对应权值
-                    uf_[q]=pRoot;//顺手压缩了路径，当然也可以不用压缩，直接默认改写权值小的连通量的根的uf_值
-                    q=uf_[q];
-                }
-                while(uf_[p]!=p){
-                    weight[p]=allWeight;
-                    uf_[p]=qRoot;
-                    p=uf_[p];
-                }
+                uf_[qRoot]=pRoot;
+                weight_[pRoot]=allWeight;
             }
-            count--;
+            count_--;
         }
 
     private:
