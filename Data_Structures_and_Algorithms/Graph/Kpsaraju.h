@@ -44,7 +44,7 @@ class noWeightsDirectedGraph{
             if(visit[i])
                 return;
             visit[i]=true;
-            result[index].push_back();
+            result[index].push_back(i);
             for(auto a : graph_[i]){
                 if(!visit[a])
                     dfs(result,visit,a,index);
@@ -54,7 +54,7 @@ class noWeightsDirectedGraph{
         void topologicalSort(vector<set<int> > graph){
             queue<int> q;
             for (int i = 0; i < graph.size(); ++i) {
-                if (in[i] == 0) 
+                if (in_[i] == 0) 
                     q.push(i);
             }
             while (!q.empty()) {
@@ -62,14 +62,14 @@ class noWeightsDirectedGraph{
                 topological_.push_back(t);
                 q.pop();
                 for (auto a : graph[t]) {
-                    --in[a];
-                    if (in[a] == 0) 
+                    --in_[a];
+                    if (in_[a] == 0) 
                         q.push(a);
                 }
             }
             //这里是检测有没有环的，我们默认输入的有向图无环
-            for (int i = 0; i<numCourses; ++i) {
-                if (in[i] != 0) 
+            for (int i = 0; i<graph_.size(); i++) {
+                if (in_[i] != 0) 
                     return ;
             }
         }

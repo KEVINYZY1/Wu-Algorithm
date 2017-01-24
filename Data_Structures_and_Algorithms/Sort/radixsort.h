@@ -1,6 +1,7 @@
 #ifndef _RADIXSORT_H
 #define _RADIXSORT_H
 #include <vector>
+#include <array>
 using namespace std;
 //基数排序
 //创建各个位的桶，然后从低位到高位开始比较。

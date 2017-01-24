@@ -10,6 +10,7 @@
 using namespace std;
 
 //FloydWarshall算法
+//多源最短路径算法
 //Floyd算法是一个经典的动态规划算法，用来寻找点对点的最短路径
 /*
 *从任意节点A到任意节点B的最短路径不外乎两种可能
