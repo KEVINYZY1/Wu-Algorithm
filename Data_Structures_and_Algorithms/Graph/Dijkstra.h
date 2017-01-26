@@ -6,6 +6,7 @@
 #include<queue>
 #include<float.h>//使用DBL_MAX，c++内部定义的double最大值
 
+#include"GraphEdge.h"
 #include"../Queue/IndexPriorityQueue.h"
 using namespace std;
 
@@ -14,27 +15,23 @@ using namespace std;
 //要求有权图中不存在负权，至于是有向图还是无向图，并不是特别在意（这里实现针对有向图）
 //时间复杂度  O(ElogV)  空间复杂度  O(V)
 
-//有向图的边定义，默认v指向w
-struct directedEdge{
-    int v;
-    int w;
-    double weight;
-    directedEdge(int v, int w, double weight){
-        this->v=v;
-        this->w=w;
-        this->weight=weight;
-    }
-};
 
-class dijkstra{
+
+class Dijkstra{
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numVerteVx-1之间
-        dijkstra(int numVerteVx, vector<directedEdge>& prerequisites)
+        Dijkstra(int numVerteVx, vector<directedEdge>& prerequisites)
         :graph_(numVerteVx), edgeTo_(numVerteVx), distTo_(numVerteVx, DBL_MAX), pqIndexMin_(numVerteVx){
             for(int i=0; i<prerequisites.size(); i++){
                 graph_[prerequisites[i].v].insert(directedEdge(prerequisites[i].v,
                                                                prerequisites[i].w, prerequisites[i].weight));
             }
+            s_=0;
+        }
+
+         //再补充一个接口，方便Johnson算法调用
+        Dijkstra(vector<set<directedEdge> > graph)
+        :graph_(graph), edgeTo_(graph.size()), distTo_(graph.size(), DBL_MAX){
             s_=0;
         }
 

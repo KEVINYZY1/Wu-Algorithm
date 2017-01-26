@@ -5,6 +5,8 @@
 #include<set>
 #include<queue>
 #include<float.h>//使用DBL_MAX，c++内部定义的double最大值
+
+#include"GraphEdge.h"
 using namespace std;
 
 //BellmanFord算法
@@ -15,31 +17,25 @@ using namespace std;
 //时间复杂度  一般情况O(E+V)  最坏情况O(EV)  空间复杂度  O(V)
 
 
-//有向图的边定义，默认v指向w
-struct directedEdge{
-    int v;
-    int w;
-    double weight;
-    directedEdge(){
-        v=-1;
-    }
-    directedEdge(int v, int w, double weight){
-        this->v=v;
-        this->w=w;
-        this->weight=weight;
-    }
-};
+
 
 class weightedDirectedGraphCycle;
-class bellmanFord{
+class BellmanFord{
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numVerteVx-1之间
-        bellmanFord(int numVerteVx, vector<directedEdge>& prerequisites)
+        BellmanFord(int numVerteVx, vector<directedEdge>& prerequisites)
         :graph_(numVerteVx), edgeTo_(numVerteVx), distTo_(numVerteVx, DBL_MAX){
             for(int i=0; i<prerequisites.size(); i++){
                 graph_[prerequisites[i].v].insert(directedEdge(prerequisites[i].v,
                                                                prerequisites[i].w, prerequisites[i].weight));
             }
+            s_=0;
+            cost_=0;
+        }
+
+        //再补充一个接口，方便Johnson算法调用
+        BellmanFord(vector<set<directedEdge> > graph)
+        :graph_(graph), edgeTo_(graph.size()), distTo_(graph.size(), DBL_MAX){
             s_=0;
             cost_=0;
         }
@@ -62,6 +58,23 @@ class bellmanFord{
         bool hasNegativeCycle() {
             return !cycle_.empty();
         }
+
+        //返回从起点s到结尾w的最短路径长度
+        double distTo(int w){
+            return distTo_[w];
+        }
+
+        //返回从起点s到结尾w的最短路径的边集合（边集合的次序是按照从起点s到结尾w的次序）
+        vector<directedEdge> pathTo(int w){
+            //利用edgeTo数组倒序查找路径
+            vector<directedEdge> t;
+            if(distTo(w)==DBL_MAX)
+                return t;
+            for(auto e=edgeTo_[w];e.v==s_;e=edgeTo_[e.v])
+                t.push_back(e);
+            return t;
+        }
+        
     private:
         vector<set<directedEdge> > graph_;
         int s_;

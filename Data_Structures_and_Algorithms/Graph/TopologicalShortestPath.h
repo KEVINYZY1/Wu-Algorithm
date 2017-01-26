@@ -5,6 +5,8 @@
 #include<set>
 #include<queue>
 #include<float.h>//使用DBL_MAX，c++内部定义的double最大值
+ 
+#include"GraphEdge.h"
 using namespace std;
 
 //比Dijkstra更快更简单
@@ -14,19 +16,6 @@ using namespace std;
 //先dfs找出拓扑排序，然后按照拓扑排序对顶点依次进行relax操作即可
 //时间复杂度   O(E+V)   空间复杂度  O(V)
 
-
-
-//有向图的边定义，默认v指向w
-struct directedEdge{
-    int v;
-    int w;
-    double weight;
-    directedEdge(int v, int w, double weight){
-        this->v=v;
-        this->w=w;
-        this->weight=weight;
-    }
-};
 
 class topologicalShortestPath{
     public:

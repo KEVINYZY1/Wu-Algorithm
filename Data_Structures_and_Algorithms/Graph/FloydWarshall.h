@@ -7,6 +7,8 @@
 #include<queue>
 #include<float.h>//使用DBL_MAX，c++内部定义的double最大值
 #include<cassert>
+
+#include"GraphEdge.h"
 using namespace std;
 
 //FloydWarshall算法
@@ -22,21 +24,6 @@ using namespace std;
 //不需要担心有环和负权重的问题，当然存在负环还是没有最短路径
 //时间复杂度  O(V3)  空间复杂度  O(V2)
 
-
-//有向图的边定义，默认v指向w
-struct directedEdge{
-    int v;
-    int w;
-    double weight;
-    directedEdge(){
-        v=-1;
-    }
-    directedEdge(int v, int w, double weight){
-        this->v=v;
-        this->w=w;
-        this->weight=weight;
-    }
-};
 
 class bellmanFord{
     public:

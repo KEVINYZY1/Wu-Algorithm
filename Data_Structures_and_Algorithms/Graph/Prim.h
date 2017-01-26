@@ -5,6 +5,8 @@
 #include<set>
 #include<queue>
 #include<priority_queue>
+
+#include"GraphEdge.h"
 #include"../Queue/IndexPriorityQueue.h"
 using namespace std;
 
@@ -20,16 +22,6 @@ using namespace std;
 
 
 
-struct edge{
-    int v;
-    int w;
-    double weight;
-    edge(int v, int w, double weight){
-        this->v=v;
-        this->w=w;
-        this->weight=weight;
-    }
-};
 class prim{
     public:
         prim(int numVerteVx, vector<edge> >& prerequisites)

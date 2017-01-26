@@ -5,6 +5,8 @@
 #include<set>
 #include<queue>
 #include<priority_queue>
+
+#include"GraphEdge.h"
 #include"UnionFind.h"
 using namespace std;
 
@@ -17,16 +19,6 @@ using namespace std;
 //按照边的权重由小到大来处理它们，加入的边不会与已有的边构成环，直到树有v-1个边为止。由森林合成树。
 //利用优先队列和并查集来完成该算法！！
 
-struct edge{
-    int v;
-    int w;
-    double weight;
-    edge(int v, int w, double weight){
-        this->v=v;
-        this->w=w;
-        this->weight=weight;
-    }
-};
 
 
 class kruskal{
