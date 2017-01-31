@@ -47,6 +47,27 @@ class redBlackTree{
                 root_->colour=BLACK;
             return true;
         }
+
+        void deleteMin() {
+            if (root_==NULL)             
+                return;
+            if (!isRed(root_.left) && !isRed(root_.right))
+                root_.color = RED;
+
+            root_ = deleteMin(root_);
+            if (root_!=NULL) root.color = BLACK;
+        }
+
+        void deleteMax() {
+            if (root_==NULL)             
+                return;
+            if (!isRed(root_.left) && !isRed(root_.right))
+                root_.color = RED;
+
+            root_ = deleteMax(root_);
+            if (root_!=NULL) root.color = BLACK;
+        }
+
         //除了插入删除操作，其余操作都是二叉搜索树的操作直接复用
         bool search(int key){
             auto node=root_;
@@ -198,6 +219,28 @@ class redBlackTree{
             return h;
         
         //删除的辅助操作
+        TreeNode * deleteMin(TreeNode * h) { 
+            if (h->left == NULL)
+                return NULL;
+
+            if (!isRed(h->left) && !isRed(h->left->left))
+                h = moveRedLeft(h);
+
+            h->left = deleteMin(h->left);
+            return balance(h);
+        }
+        TreeNode * deleteMax(TreeNode * h) { 
+            if (isRed(h->left))
+                h = rotateRight(h);
+
+            if (h->right == NULL)
+                return NULL;
+            if (!isRed(h->right) && !isRed(h->right->left))
+                h = moveRedRight(h);
+
+            h->right = deleteMax(h->right);
+            return balance(h);
+        }
         TreeNode *delete(TreeNode * h, int key){
             if(h->key>key){
                 if(!isRed(h->left) && !isRed(h->left->left))
