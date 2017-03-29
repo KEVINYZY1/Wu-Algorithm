@@ -1,6 +1,7 @@
 #include<vector>
 #include<set>
 #include<queue>
+#include<list>
 using namespace std;
 
 //返回拓扑排序！！！
@@ -37,3 +38,39 @@ public:
         return result;
     }
 };
+
+
+//方法2， dfs
+bool hasCycle(vector<list<int>>& adj, int v, vector<bool>& visited, vector<bool>& onstack, vector<int>& order);
+
+vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {  
+    vector<list<int>> adj(numCourses, list<int>());  
+    vector<bool> visited(numCourses, false);  
+    vector<bool> onstack(numCourses, false);  
+    vector<int> order;  
+      
+    for(auto& it : prerequisites) {  
+        adj[it.second].push_back(it.first);  
+    }  
+      
+    for(int i=0; i<numCourses; ++i) {  
+        if(visited[i]) continue;  
+        if(hasCycle(adj, i, visited, onstack, order)) 
+            return vector<int>();  
+    }  
+    return order;  
+}  
+  
+bool hasCycle(vector<list<int>>& adj, int v, vector<bool>& visited, vector<bool>& onstack, vector<int>& order) {  
+    visited[v] = true;  
+    onstack[v] = true;  
+    for(auto& it : adj[v]) {  
+        if(!visited[it] && hasCycle(adj, it, visited, onstack, order)) 
+            return true;  
+        if(onstack[it]) 
+            return true;  
+    }  
+    order.insert(order.begin(), v);  
+    onstack[v] = false;  
+    return false;  
+}  

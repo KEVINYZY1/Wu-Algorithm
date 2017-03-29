@@ -45,6 +45,6 @@ public:
     }
 private:
     int size;
-    list<CacheNode> l;
+    list<CacheNode> l;//也能用deque
     unordered_map<int,list<CacheNode>::iterator>m;
 };
