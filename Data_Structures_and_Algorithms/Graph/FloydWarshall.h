@@ -25,10 +25,10 @@ using namespace std;
 //时间复杂度  O(V3)  空间复杂度  O(V2)
 
 
-class bellmanFord{
+class FloydWarshall{
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numVerteVx-1之间
-        bellmanFord(int numVerteVx, vector<directedEdge>& prerequisites)
+        FloydWarshall(int numVerteVx, vector<directedEdge>& prerequisites)
         :graph_(numVerteVx), edgeTo_(numVerteVx, vector<directedEdge>()), 
         distTo_(numVerteVx, vector<double>(numVerteVx,DBL_MAX)), hasNegativeCycle_(false){
             for(int i=0; i<prerequisites.size(); i++){

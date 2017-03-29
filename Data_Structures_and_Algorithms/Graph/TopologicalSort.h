@@ -13,6 +13,7 @@ using namespace std;
 class topologicalSort {
 public:
     //bfs
+    //构建入度为0的队列，然后不断的对队列操作
     vector<int> findOrder(int numVerteVx, vector<pair<int, int>>& prerequisites) {
         vector<int> result;
         vector<vector<int> > graph(numVerteVx, vector<int>(0));
@@ -43,6 +44,7 @@ public:
         return result;
     }
     //Dfs
+    //遍历顶点，不断判断顶点是否含有环，在没环的情况下，把节点插入头部
     vector<int> findOrder2(int numVerteVx, vector<pair<int, int>>& prerequisites) {  
         vector<list<int>> adj(numVerteVx, list<int>());  
         vector<bool> visited(numVerteVx, false);  

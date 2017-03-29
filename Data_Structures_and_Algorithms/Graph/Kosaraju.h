@@ -13,10 +13,12 @@ using namespace std;
 //步骤2，对有向图G按照刚才得到的拓扑顺序进行DFS搜索；
 //步骤3，所有在同一个Dfs函数中访问到的顶点属于同一个强连通分量。
 
+//核心：v为原图dfs(G,s)达到的点，则必然存在s到v的路径。
+//原图中按照反向图的拓扑排序进行dfs，反向图中dfs(G,v)会在dfs(G,s)之前结束，表明反向图也存在s到v的路径。
 
-class noWeightsDirectedGraph{
+class Kosaraju{
     public:
-        noWeightsDirectedGraph(int numVerteVx, vector<pair<int, int>>& prerequisites)
+        Kosaraju(int numVerteVx, vector<pair<int, int>>& prerequisites)
         :graph_(numVerteVx), rGraph_(numVerteVx), in_(numVerteVx, 0){
             for(int i=0; i<prerequisites.size(); i++){
                 graph_[prerequisites[i].second].insert(prerequisites[i].first);

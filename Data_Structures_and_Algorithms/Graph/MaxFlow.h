@@ -35,14 +35,14 @@ using namespace std;
 class EdmondsKarp{
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numVerteVx-1之间
-        EdmondsKarp(int numVerteVx, vector<flowEdge>& prerequisite)
+        EdmondsKarp(int numVerteVx, vector<flowEdge>& prerequisites)
         :graph_(numVerteVx), flow_(numVerteVx, vector<double>(numVerteVx,0)), 
         augmentingPath_(numVerteVx,0), maxFlow_(numVerteVx, vector<double>(numVerteVx,0)){
             for(int i=0; i<prerequisites.size(); i++){
                 graph_[prerequisites[i].v].insert(flowEdge(prerequisites[i].v,
                                                            prerequisites[i].w, 
                                                            prerequisites[i].maxFlow));
-                maxFlow_[prerequisites[i].v, prerequisites[i].w]=prerequisites[i].maxFlow;
+                maxFlow_[prerequisites[i].v][prerequisites[i].w]=prerequisites[i].maxFlow;
             }
             
         }

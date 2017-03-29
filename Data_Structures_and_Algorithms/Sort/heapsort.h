@@ -22,6 +22,7 @@ void maxHeap(vector<int>&nums,int len,int i){
     }
 }
 //建立堆
+//关键，是从末尾有子节点的节点开始向顶点慢慢调整
 void createHeap(vector<int>&nums,int len){
     for(int i=(len-1)*0.5;i>=0;--i){
         maxHeap(nums, len, i);
