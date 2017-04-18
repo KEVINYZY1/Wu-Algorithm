@@ -54,5 +54,33 @@ int main(){
     }
 }
 */
+/*
+动态规划
+dp[]数组，下标为背包总重，值为到背包总重的方法
+*/
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
-//dp来做！
+void bag(vector<int> &v, int sum){
+    vector<int> b(sum+1, 0);
+    b[0] = 1;//背包重量为0，不管啥时候都有一种办法
+    for(int i = 0; i < v.size(); i++){
+        for(int j = sum; j > v[i]; j--){
+            b[j] = b[j] + b[j - v[i]];
+        }
+    }
+    cout << b[sum] << endl;
+}
+
+int main(){
+    int n, sum;
+    while(cin >> n >> sum){
+        vector<int> v(n);
+        for(int i = 0; i < n; i++){
+            cin >> v[i];
+        }
+        bag(v, sum);
+    }
+}
