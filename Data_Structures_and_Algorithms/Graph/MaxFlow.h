@@ -32,13 +32,13 @@ using namespace std;
 
 //下面的实现，是EdmondsKarp算法，寻找增广路径的方法是BFS
 //时间复杂度  O(VE2)
-class EdmondsKarp{
+class EdmondsKarp {
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numVerteVx-1之间
         EdmondsKarp(int numVerteVx, vector<flowEdge>& prerequisites)
         :graph_(numVerteVx), flow_(numVerteVx, vector<double>(numVerteVx,0)), 
-        augmentingPath_(numVerteVx,0), maxFlow_(numVerteVx, vector<double>(numVerteVx,0)){
-            for(int i=0; i<prerequisites.size(); i++){
+        augmentingPath_(numVerteVx,0), maxFlow_(numVerteVx, vector<double>(numVerteVx,0)) {
+            for (int i = 0; i < prerequisites.size(); i++) {
                 graph_[prerequisites[i].v].insert(flowEdge(prerequisites[i].v,
                                                            prerequisites[i].w, 
                                                            prerequisites[i].maxFlow));
@@ -47,35 +47,35 @@ class EdmondsKarp{
             
         }
 
-        int findMaxFlow(int s, int t){
-            int maxFlowSum=0;
-            queue<int>q;//BFS必备
-            while(true){
+        int findMaxFlow(int s, int t) {
+            int maxFlowSum = 0;
+            queue<int> q;//BFS必备
+            while (true) {
                 vector<double> res(graph_.size(), 0);//残余网络
-                res[s]=DBL_MAX;//源点的残留网络要置为无限大
-                augmentingPath_[s]=-1;
+                res[s] = DBL_MAX;//源点的残留网络要置为无限大
+                augmentingPath_[s] = -1;
                 q.push(s);
                 //BFS, BFS 的时间都是O(E)
-                while(!q.empty()){
-                    int v=q.front();
+                while (!q.empty()) {
+                    int v = q.front();
                     q.pop();
                     //除了s和t的所有顶点
-                    for(int i=0; i<=t; i++){
-                        if(!res[i] && flow_[v][i]<maxFlow_[v][i]){
+                    for (int i = 0; i <= t; i++) {
+                        if (!res[i] && flow_[v][i] < maxFlow_[v][i]) {
                             q.push(i);
-                            augmentingPath_[i]=v;
-                            res[i]=min(maxFlow_[v][i]-flow_[v][i], res[v]);//这里类似dp，如果有增广路，那么res[t]就是增广路的最小权
+                            augmentingPath_[i] = v;
+                            res[i] = min(maxFlow_[v][i]-flow_[v][i], res[v]);//这里类似dp，如果有增广路，那么res[t]就是增广路的最小权
                         }
                     }
-                    if(res[t]==0)//没有增广路径
+                    if (res[t] == 0)//没有增广路径
                         break;
-                    int k=t;
-                    while(augmentingPath_[k]!=-1){
-                        flow_[augmentingPath_[k]][k]+=res[t];//正向边加上新的流量  
-                        flow_[k][augmentingPath_[k]]-=res[t];//反向边要减去新的流量，反向边的作用是给程序一个后悔的机会  
-                        k=augmentingPath_[k];
+                    int k = t;
+                    while (augmentingPath_[k] != -1) {
+                        flow_[augmentingPath_[k]][k] += res[t];//正向边加上新的流量  
+                        flow_[k][augmentingPath_[k]] -= res[t];//反向边要减去新的流量，反向边的作用是给程序一个后悔的机会  
+                        k = augmentingPath_[k];
                     }
-                    maxFlowSum+=res[t];
+                    maxFlowSum += res[t];
                 }
             }
             return maxFlowSum;
