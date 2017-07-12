@@ -14,8 +14,7 @@ using namespace std;
 //权重可以是负数，图可以有环，但是不能有负环，如果存在负环，将会被检测出来
 //每轮算法relaxE条边，一共进行V轮，relax边的次序没有要求！！
 //实际上是动态规划
-//时间复杂度  一般情况O(E+V)  最坏情况O(EV)  空间复杂度  O(V)
-
+//时间复杂度  O(EV)  空间复杂度  O(V)
 
 
 
@@ -24,32 +23,32 @@ class BellmanFord{
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numVerteVx-1之间
         BellmanFord(int numVerteVx, vector<directedEdge>& prerequisites)
-        :graph_(numVerteVx), edgeTo_(numVerteVx), distTo_(numVerteVx, DBL_MAX){
-            for(int i=0; i<prerequisites.size(); i++){
-                graph_[prerequisites[i].v].insert(directedEdge(prerequisites[i].v,
+                    : graph_(numVerteVx), edgeTo_(numVerteVx), distTo_(numVerteVx, DBL_MAX) {
+            for (int i = 0; i < prerequisites.size(); i++) {
+                graph_[prerequisites[i].v].push_back(directedEdge(prerequisites[i].v,
                                                                prerequisites[i].w, prerequisites[i].weight));
             }
-            s_=0;
-            cost_=0;
+            s_ = 0;
+            cost_ = 0;
         }
 
         //再补充一个接口，方便Johnson算法调用
-        BellmanFord(vector<set<directedEdge> > graph)
-        :graph_(graph), edgeTo_(graph.size()), distTo_(graph.size(), DBL_MAX){
-            s_=0;
-            cost_=0;
+        BellmanFord(vector<vector<directedEdge> > graph)
+                    : graph_(graph), edgeTo_(graph.size()), distTo_(graph.size(), DBL_MAX) {
+            s_ = 0;
+            cost_ = 0;
         }
 
         //s代表了最短路径的起点
-        void shortestPath(int s){
-            s_=s;
-            distTo_[s]=0;
+        void shortestPath(int s) {
+            s_ = s;
+            distTo_[s] = 0;
             vector<bool> onQueue(graph_.size(), false);//防止
-            onQueue[s_]=true;
+            onQueue[s_] = true;
             q.push(s_);
             
-            while(!q.empty() && !hasNegativeCycle()){//一旦发现负环，就停止执行
-                int v=q.front();
+            while (!q.empty() && !hasNegativeCycle()) {//一旦发现负环，就停止执行
+                int v = q.front();
                 q.pop();
                 relax(v, onQueue);
             }
@@ -60,23 +59,23 @@ class BellmanFord{
         }
 
         //返回从起点s到结尾w的最短路径长度
-        double distTo(int w){
+        double distTo(int w) {
             return distTo_[w];
         }
 
         //返回从起点s到结尾w的最短路径的边集合（边集合的次序是按照从起点s到结尾w的次序）
-        vector<directedEdge> pathTo(int w){
+        vector<directedEdge> pathTo(int w) {
             //利用edgeTo数组倒序查找路径
             vector<directedEdge> t;
-            if(distTo(w)==DBL_MAX)
+            if (distTo(w) == DBL_MAX)
                 return t;
-            for(auto e=edgeTo_[w];e.v==s_;e=edgeTo_[e.v])
+            for (auto e = edgeTo_[w]; e.v == s_; e = edgeTo_[e.v])
                 t.push_back(e);
             return t;
         }
         
     private:
-        vector<set<directedEdge> > graph_;
+        vector<vector<directedEdge> > graph_;
         int s_;
 
         //用来表示最短路径
@@ -91,21 +90,22 @@ class BellmanFord{
         //松弛操作
         //利用onQueue保证队列中不出现重复的顶点，更重要的是
         //在前一轮中被改变了edgeto和distto值的顶点，会在下一轮中被处理。
-        void relax(int v, vector<bool>& onQueue){
-            for(auto e : graph_[v]){
-                int v=e.v;
-                int w=e.w;
-                if(distTo_[v]+e.weight<distTo_[w]){
-                    distTo_[w]=distTo_[v]+e.weight;
-                    edgeTo_[w]=e;
-                    if(onQueue[w]==false){
+        void relax(int v, vector<bool>& onQueue) {
+            for(auto e : graph_[v]) {
+                int v = e.v;
+                int w = e.w;
+                if (distTo_[v] + e.weight < distTo_[w]) {
+                    distTo_[w] = distTo_[v]+e.weight;
+                    edgeTo_[w] = e;
+                    if (onQueue[w] == false) {
                         q.push(w);
-                        onQueue[w]=true;
+                        onQueue[w] = true;
                     }
                 }
-                if(cost_++%graph_.size()==0){
+                if (cost_++ % graph_.size() == 0) {
                     findNegativeCycle();
-                    if (hasNegativeCycle()) return;  // found a negative cycle
+                    if (hasNegativeCycle()) 
+                        return;  // found a negative cycle
                 }
             }
         }
@@ -119,7 +119,7 @@ class BellmanFord{
                     spt.push_back(edgeTo_[v]);
             //每relax一轮，都把从edgeTo数组中的边判断是否有环
             weightedDirectedGraphCycle wc(V, spt);
-            if(wc.isNegativeCycle())
+            if (wc.isNegativeCycle())
                 cycle_.swap(spt);
         }
 };
@@ -129,10 +129,10 @@ class weightedDirectedGraphCycle{
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numCourses-1之间
         weightedDirectedGraphCycle(int numCourses, vector<directedEdge>& prerequisites)
-        :graph_(numCourses), hasNegativeCycle_(false), visit_(numCourses, false), 
-        onStack_(numCourses, false), edgeTo_(numCourses){
-            for(int i=0; i<prerequisites.size(); i++){
-                graph_[prerequisites[i].v].insert(directedEdge(prerequisites[i].v,
+                        : graph_(numCourses), hasNegativeCycle_(false), visit_(numCourses, false), 
+                          onStack_(numCourses, false), edgeTo_(numCourses) {
+            for (int i = 0; i<prerequisites.size(); i++) {
+                graph_[prerequisites[i].v].push_back(directedEdge(prerequisites[i].v,
                                                                prerequisites[i].w, prerequisites[i].weight));
             }
             for (int v = 0; v < numCourses; v++)
@@ -140,37 +140,36 @@ class weightedDirectedGraphCycle{
                     dfs(v);
         }
 
-        bool isNegativeCycle(){
+        bool isNegativeCycle() {
             return hasNegativeCycle_;
         }
 
     private:
-        vector<set<directedEdge> > graph_;
-        vector<bool>visit_;
-        vector<bool>onStack_;
+        vector<vector<directedEdge> > graph_;
+        vector<bool> visit_;
+        vector<bool> onStack_;
         vector<directedEdge> edgeTo_;
 
         bool hasNegativeCycle_;
-        void dfs(int v){
+        void dfs(int v) {
             onStack_[v] = true;
             visit_[v] = true;
-            for(auto e : graph_[v]){
-                int w=e.w;
-                if(hasNegativeCycle_)
+            for (auto e : graph_[v]) {
+                int w = e.w;
+                if (hasNegativeCycle_)
                     return;
-                if(visit_[w]==false){
+                if (visit_[w] == false) {
                     edgeTo_[w]=e;
                     dfs(w);
-                }
-                else if(onStack_[w]==false){
-                    int cost=0;
-                    auto f=e;
-                    while(f.v!=w){
-                        cost+=f.weight;
-                        f=edgeTo_[f.v];
+                } else if (onStack_[w] == false) {
+                    int cost = 0;
+                    auto f = e;
+                    while (f.v != w) {
+                        cost += f.weight;
+                        f = edgeTo_[f.v];
                     }
-                    if(cost<0)
-                        hasNegativeCycle_=true;
+                    if (cost < 0)
+                        hasNegativeCycle_ = true;
                 }
             }
         }

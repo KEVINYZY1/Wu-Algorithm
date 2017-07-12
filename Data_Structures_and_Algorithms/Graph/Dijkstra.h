@@ -21,48 +21,49 @@ class Dijkstra{
     public:
         //输入顶点数和边集合来构造有向图，顶点值为0到numVerteVx-1之间
         Dijkstra(int numVerteVx, vector<directedEdge>& prerequisites)
-        :graph_(numVerteVx), edgeTo_(numVerteVx), distTo_(numVerteVx, DBL_MAX), pqIndexMin_(numVerteVx){
-            for(int i=0; i<prerequisites.size(); i++){
-                graph_[prerequisites[i].v].insert(directedEdge(prerequisites[i].v,
+                 :graph_(numVerteVx), edgeTo_(numVerteVx), 
+                  distTo_(numVerteVx, DBL_MAX), pqIndexMin_(numVerteVx) {
+            for (int i = 0; i < prerequisites.size(); i++) {
+                graph_[prerequisites[i].v].push_back(directedEdge(prerequisites[i].v,
                                                                prerequisites[i].w, prerequisites[i].weight));
             }
-            s_=0;
+            s_ = 0;
         }
 
          //再补充一个接口，方便Johnson算法调用
-        Dijkstra(vector<set<directedEdge> > graph)
-        :graph_(graph), edgeTo_(graph.size()), distTo_(graph.size(), DBL_MAX){
-            s_=0;
+        Dijkstra(vector<vector<directedEdge> > graph)
+            : graph_(graph), edgeTo_(graph.size()), distTo_(graph.size(), DBL_MAX) {
+            s_ = 0;
         }
 
         //s代表了最短路径的起点
-        void shortestPath(int s){
-            s_=s;
-            distTo_[s]=0;
+        void shortestPath(int s) {
+            s_ = s;
+            distTo_[s] = 0;
             pqIndexMin_.insert(s,0.0);
-            while(!pqIndexMin_.isEmpty()){
+            while (!pqIndexMin_.isEmpty()) {
                 relax(pqIndexMin_.delMin());
             }
         }
 
         //返回从起点s到结尾w的最短路径长度
-        double distTo(int w){
+        double distTo(int w) {
             return distTo_[w];
         }
 
         //返回从起点s到结尾w的最短路径的边集合（边集合的次序是按照从起点s到结尾w的次序）
-        vector<directedEdge> pathTo(int w){
+        vector<directedEdge> pathTo(int w) {
             //利用edgeTo数组倒序查找路径
             vector<directedEdge> t;
-            if(distTo(w)==DBL_MAX)
+            if (distTo(w) == DBL_MAX)
                 return t;
-            for(auto e=edgeTo_[w];e.v==s_;e=edgeTo_[e.v])
+            for (auto e = edgeTo_[w]; e.v == s_; e = edgeTo_[e.v])
                 t.push_back(e);
             return t;
         }
 
     private:
-        vector<set<directedEdge> > graph_;
+        vector<vector<directedEdge> > graph_;
         int s_;
 
         //用来表示最短路径
@@ -77,17 +78,17 @@ class Dijkstra{
 
         //松弛操作，Dijkstra算法的核心
         //也正是因为它，才要求权值必须非负
-        void relax(int v){
-            for(auto e : graph_[v]){
-                int v=e.v;
-                int w=e.w;
-                if(distTo_[v]+e.weight<distTo_[w]){
-                    distTo_[w]=distTo_[v]+e.weight;
-                    edgeTo_[w]=e;
-                    if(pqIndexMin_.exist(w))
-                        pqIndexMin_.charge(w,distTo_[w]);
+        void relax(int v) {
+            for (auto e : graph_[v]) {
+                int v = e.v;
+                int w = e.w;
+                if (distTo_[v] + e.weight < distTo_[w]) {
+                    distTo_[w] = distTo_[v] + e.weight;
+                    edgeTo_[w] = e;
+                    if (pqIndexMin_.exist(w))
+                        pqIndexMin_.charge(w, distTo_[w]);
                     else 
-                        pqIndexMin_.insert(w,distTo_[w]);
+                        pqIndexMin_.insert(w, distTo_[w]);
                 }
             }
         }

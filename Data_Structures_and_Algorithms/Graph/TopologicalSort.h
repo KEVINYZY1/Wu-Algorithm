@@ -37,7 +37,7 @@ public:
                     q.push(a);
             }
         }
-        for (int i = 0; i<numVerteVx; ++i) {
+        for (int i = 0; i < numVerteVx; ++i) {
             if (in[i] != 0) 
                 return vector<int>();
         }
@@ -51,13 +51,14 @@ public:
         vector<bool> onstack(numVerteVx, false);  
         vector<int> order;  
         
-        for(auto& it : prerequisites) {  
+        for (auto& it : prerequisites) {  
             adj[it.second].push_back(it.first);  
         }  
         
-        for(int i=0; i<numVerteVx; ++i) {  
-            if(visited[i]) continue;  
-            if(hasCycle(adj, i, visited, onstack, order)) 
+        for (int i = 0; i < numVerteVx; ++i) {  
+            if (visited[i]) 
+                continue;  
+            if (hasCycle(adj, i, visited, onstack, order)) 
                 return vector<int>();  
         }  
         return order;  
@@ -66,10 +67,10 @@ public:
     bool hasCycle(vector<list<int>>& adj, int v, vector<bool>& visited, vector<bool>& onstack, vector<int>& order) {  
         visited[v] = true;  
         onstack[v] = true;  
-        for(auto& it : adj[v]) {  
-            if(!visited[it] && hasCycle(adj, it, visited, onstack, order)) 
+        for (auto& it : adj[v]) {  
+            if (!visited[it] && hasCycle(adj, it, visited, onstack, order)) 
                 return true;  
-            if(onstack[it]) 
+            if (onstack[it]) 
                 return true;  
         }  
         order.insert(order.begin(), v);  

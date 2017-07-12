@@ -31,7 +31,7 @@ class FloydWarshall{
         FloydWarshall(int numVerteVx, vector<directedEdge>& prerequisites)
         :graph_(numVerteVx), edgeTo_(numVerteVx, vector<directedEdge>()), 
         distTo_(numVerteVx, vector<double>(numVerteVx,DBL_MAX)), hasNegativeCycle_(false){
-            for(int i=0; i<prerequisites.size(); i++){
+            for (int i = 0; i < prerequisites.size(); i++) {
                 graph_[prerequisites[i].v].insert(directedEdge(prerequisites[i].v,
                                                                prerequisites[i].w, prerequisites[i].weight));
             }
@@ -69,29 +69,29 @@ class FloydWarshall{
         }
 
         //返回从s到w的最短路径
-        double findShortestPathCost(int s, int w){
+        double findShortestPathCost(int s, int w) {
             assert(!hasNegativeCycle());
-            assert(s>=0 && s<graph_.size());
-            assert(w>=0 && w<graph_.size());
+            assert(s >= 0 && s < graph_.size());
+            assert(w >= 0 && w < graph_.size());
             return distTo_[s][w];
         }
-        vector<directedEdge> findShortestPath(int s, int w){
+        vector<directedEdge> findShortestPath(int s, int w) {
             assert(!hasNegativeCycle());
-            assert(s>=0 && s<graph_.size());
-            assert(w>=0 && w<graph_.size());
+            assert(s >= 0 && s < graph_.size());
+            assert(w >= 0 && w < graph_.size());
             vector<directedEdge> t;
-            auto e=edgeTo_[s][w];
-            while(e.v!=s){
-                assert(e.v!=-1);
+            auto e = edgeTo_[s][w];
+            while (e.v != s) {
+                assert(e.v != -1);
                 t.push_back(e);
-                w=e.v;
-                e=edgeTo_[s][w];    
+                w = e.v;
+                e = edgeTo_[s][w];    
             }
             reverse(t.begin(), t.end());
             return t;
         }
 
-        bool hasNegativeCycle(){
+        bool hasNegativeCycle() {
             return hasNegativeCycle_;
         }
 

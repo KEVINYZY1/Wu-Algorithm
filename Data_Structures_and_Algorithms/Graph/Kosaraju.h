@@ -19,8 +19,8 @@ using namespace std;
 class Kosaraju{
     public:
         Kosaraju(int numVerteVx, vector<pair<int, int>>& prerequisites)
-        :graph_(numVerteVx), rGraph_(numVerteVx), in_(numVerteVx, 0){
-            for(int i=0; i<prerequisites.size(); i++){
+                 : graph_(numVerteVx), rGraph_(numVerteVx), in_(numVerteVx, 0) {
+            for (int i = 0; i < prerequisites.size(); i++) {
                 graph_[prerequisites[i].second].insert(prerequisites[i].first);
                 rGraph_[prerequisites[i].first].insert(prerequisites[i].second);
                 ++in_[prerequisites[i].second];
@@ -28,12 +28,12 @@ class Kosaraju{
             topologicalSort(rGraph_);
         }
 
-        vector<vector<int>> kpsaraju(){
+        vector<vector<int>> kpsaraju() {
             vector<vector<int>> result;
             vector<bool> visit(graph_.size(), false);
-            int index=0;
-            for(int i=0; i<topological_.size(); i++){
-                if(!visit[i]){
+            int index = 0;
+            for (int i = 0; i < topological_.size(); i++) {
+                if (!visit[i]) {
                     result.push_back(vector<int>());
                     dfs(result, visit, i, index++);
                 }
@@ -42,18 +42,18 @@ class Kosaraju{
         }
 
     private:
-        void dfs(vector<vector<int>> &result, vector<bool> &visit, int i, int index){
-            if(visit[i])
+        void dfs(vector<vector<int>> &result, vector<bool> &visit, int i, int index) {
+            if (visit[i])
                 return;
-            visit[i]=true;
+            visit[i] = true;
             result[index].push_back(i);
-            for(auto a : graph_[i]){
-                if(!visit[a])
+            for (auto a : graph_[i]) {
+                if (!visit[a])
                     dfs(result,visit,a,index);
             }
         }
 
-        void topologicalSort(vector<set<int> > graph){
+        void topologicalSort(vector<set<int> > graph) {
             queue<int> q;
             for (int i = 0; i < graph.size(); ++i) {
                 if (in_[i] == 0) 

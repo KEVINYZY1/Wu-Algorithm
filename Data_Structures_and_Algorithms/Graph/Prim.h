@@ -25,8 +25,8 @@ using namespace std;
 class prim{
     public:
         prim(int numVerteVx, vector<edge> >& prerequisites)
-        :graph_(numVerteVx), pqIndexMin_(numVerteVx){
-            for(int i=0; i<prerequisites.size(); i++){
+             : graph_(numVerteVx), pqIndexMin_(numVerteVx) {
+            for (int i = 0; i < prerequisites.size(); i++) {
                 //左右对插，因为这是无向图
                 graph_[prerequisites[i].v].insert(make_pair(prerequisites[i].w,prerequisites[i].weight));
                 graph_[prerequisites[i].w].insert(make_pair(prerequisites[i].v,prerequisites[i].weight));
@@ -36,16 +36,16 @@ class prim{
         //prim算法的延时实现               时间复杂度O(ElogE) 空间复杂度(E)
         //将最小生成树相邻的所有边放入优先队列中，然后每次从队列中取出最小权重的边，加入最小生成树
         //以边集合的形式返回最小生成树
-        vector<edge> lazyPrimMst(){
-            vector<bool> visit(graph_.size(),false);
+        vector<edge> lazyPrimMst() {
+            vector<bool> visit(graph_.size(), false);
             vector<edge> t;//距离树最近的边，也就是每次要加入树的边
-            dfsLazy(visit,0);//先从顶点0开始dfs一下，同时令优先队列不空
-            while(!pqMin_.empty()){
-                edge e=pqMin_.top();
+            dfsLazy(visit, 0);//先从顶点0开始dfs一下，同时令优先队列不空
+            while (!pqMin_.empty()) {
+                edge e = pqMin_.top();
                 pqMin_.pop();
-                int v=e.v;
-                int w=e.w;
-                if(visit[v]&&visit[w])
+                int v = e.v;
+                int w = e.w;
+                if (visit[v] && visit[w])
                     continue;
                 t.push_back(e);
                 if(!visit[v])
@@ -61,14 +61,14 @@ class prim{
         //尝试把优先队列里失效的边删去！！！这是和延时实现最大性能优化的地方
         //每次用索引优先队列维护可能是与最小生成树相邻的最小权重边，每次用最小权重边加入最小生成树
         //以边集合的形式返回最小生成树
-        vector<edge> nowPrimMst(){
+        vector<edge> nowPrimMst() {
             vector<bool> visit(graph_.size(),false);
             vector<edge> t(graph_.size());//距离树最近的边，也就是每次要加入树的边
             vector<double> distTo(graph_.size(),INT_MAX);//distTo[w]=t[w].weight 
 
             distTo[0]=0.0;
             pqIndexMin_.insert(0,0.0);
-            while(!pqIndexMin_.empty()){
+            while (!pqIndexMin_.empty()) {
                 dfsNow(visit, pqIndexMin_.delMin(), t, distTo); 
             }
             return t;
@@ -77,27 +77,29 @@ class prim{
     private:
         vector<set<pair<int, double> > > graph_;//pair的第一个int是另一个端点，第二个double是权值
         //比较边的最小优先队列，延时prim使用
-        priority_queue<edge, vector<edge>, [](edge &l, edge &r){return (l->weight-r->weight)<0} > pqMin_;
+        priority_queue<edge, vector<edge>, [](edge &l, edge &r){
+            return (l->weight - r->weight) < 0
+        } > pqMin_;
         //索引优先队列，即时prim使用，索引为顶点，值为权值。
         indexPriorityQueue<double> pqIndexMin_;
 
-        void dfsLazy(vector<bool>& visit, int i){
-            visit[i]=true;
-            for(auto it=graph_[i].begin(); it!=graph_[i].end(); it++){
-                if(visit[it->first]==false)
-                    pqMin_.push(edge(i,it->first,it->second));
+        void dfsLazy(vector<bool>& visit, int i) {
+            visit[i] = true;
+            for(auto it = graph_[i].begin(); it != graph_[i].end(); it++) {
+                if (visit[it->first] == false)
+                    pqMin_.push(edge(i, it->first, it->second));
             }
         }
-        void dfsNow(vector<bool>& visit, int i, vector<edge>& t, vector<double>& distTo){
-            visit[i]=true;
-            for(auto it=graph_[i].begin(); it!=graph_[i].end(); it++){
-                int w=it->first;
-                if(visit[w])
+        void dfsNow(vector<bool>& visit, int i, vector<edge>& t, vector<double>& distTo) {
+            visit[i] = true;
+            for (auto it = graph_[i].begin(); it != graph_[i].end(); it++) {
+                int w = it->first;
+                if (visit[w])
                     continue;
-                if(distTo[w]>it->second){
-                    t[w]=edge(i,w,it->second);
-                    distTo[w]=it->second;
-                    if(pqIndexMin_.contains(w))
+                if (distTo[w] > it->second) {
+                    t[w] = edge(i,w,it->second);
+                    distTo[w] = it->second;
+                    if (pqIndexMin_.contains(w))
                         pqIndexMin_.charge(w,it->second);
                     else 
                         pqIndexMin_.insert(w,it->second);
