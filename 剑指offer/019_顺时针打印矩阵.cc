@@ -8,28 +8,30 @@ using namespace std;
 class Solution {
 public:
     vector<int> printMatrix(vector<vector<int> > matrix) {
-		vector<int>res;
-        if(matrix.empty())
+		vector<int> res;
+        if (matrix.empty())
             return res;
-        const int rows=matrix.size();
-        if(matrix[0].empty())
+        const int rows = matrix.size();
+        if (matrix[0].empty())
             return res;
-        const int columns=matrix[0].size();
-        int circle=((rows<columns?rows:columns)-1)/2+1;//圈数
-        for(int i=0;i<circle;i++){
-            //从左向右打印
-            for(int j=i;j<columns-i;j++)
-                res.push_back(matrix[i][j]);         
-            //从上往下的每一列数据
-            for(int k=i+1;k<rows-i;k++)
-                res.push_back(matrix[k][columns-1-i]);
-            //判断是否会重复打印(从右向左的每行数据)
-            for(int m=columns-i-2;(m>=i)&&(rows-i-1!=i);m--)//多个判断，判断会不会之前的从左向右打印的行重合。
-                res.push_back(matrix[rows-i-1][m]);
-            //判断是否会重复打印(从下往上的每一列数据)
-            for(int n=rows-i-2;(n>i)&&(columns-i-1!=i);n--)
-                res.push_back(matrix[n][i]);
+        const int columns = matrix[0].size();
+        int circle = ((rows < columns ? rows : columns) - 1) / 2 + 1;//圈数
+        int start = 0;
+        while (circle > start) {
+            for (int i = start; i < columns - start; ++i) {
+                res.push_back(matrix[start][i]);
+            }
+            for (int i = start + 1; i < rows - start; ++i) {
+                res.push_back(matrix[i][columns - start - 1]);
+            }
+            for (int i = columns - start - 2; start * 2 + 1 < rows && i >= start; --i) {
+                res.push_back(matrix[rows - start - 1][i]);
+            }
+            for (int i = rows - start - 2; start * 2 + 1 < columns && i > start; --i) {
+                res.push_back(matrix[i][start]);
+            }
+            start++;
         }
-        return res;
+        return res;
     }
 };

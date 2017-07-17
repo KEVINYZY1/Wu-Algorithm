@@ -7,24 +7,24 @@ using namespace std;
 
 class Solution {
 public:
-	void replaceSpace(char *str,int length) {
-		//假设str所指的字符串空间可以经得住折腾
-        int countSpaces=0;
-        for(int i=0;i<length;i++){
-            if(*(str+i)==' ')
+	void replaceSpace(char *str, int length) {
+		//保证字符串数组有足够的空间去容纳变长后的字母
+        int countSpaces = 0;
+        for (int i = 0; i < length; i++) {
+            if (str[i] == ' ')
                 countSpaces++;
         }
-        int newLength=countSpaces*2+length;
-        for(int i=newLength,j=length;j>=0;i--,j--){
-            if(*(str+j)!=' '){
-                *(str+i)=*(str+j);
-            }
-            else{
-                *(str+i)='0';
-                i--;
-                *(str+i)='2';
-                i--;
-                *(str+i)='%';
+        if (countSpaces > 0) {
+            for (int i = length - 1; i >= 0; i--) {
+                if (str[i] == ' ') {
+                    countSpaces--;
+                    int index = countSpaces * 2 + i;
+                    str[index] = '%';
+                    str[index + 1] = '2';
+                    str[index + 2] = '0';
+                } else {
+                    str[i + countSpaces * 2] = str[i];
+                }
             }
         }
 	}

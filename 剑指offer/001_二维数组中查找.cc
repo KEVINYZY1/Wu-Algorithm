@@ -7,21 +7,19 @@ using namespace std;
 class Solution {
 public:
     bool Find(int target, vector<vector<int> > array) {
-        const int rows=array.size();
-        if(rows==0)
+        if (array.empty())
             return false;
-        const int columns=array[0].size();
-        if(columns ==0)
-            return false;
-        int start=array[0][columns-1];
-        int i=0;
-        int j=columns -1;
-        while(i<rows && j>=0){
-            if(target>array[i][j])
+        const int rows = array.size();
+        const int colums = array[0].size();
+        int i = 0, j = colums - 1;
+        while (i < rows && j >= 0) {
+            if (array[i][j] == target) {
+                return true;
+            } else if (array[i][j] < target) {
                 i++;
-            else if(target<array[i][j])
+            } else {
                 j--;
-            else return true;
+            }
         }
         return false;
     }

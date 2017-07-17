@@ -19,21 +19,21 @@ public:
     bool VerifySquenceOfBST(vector<int> sequence) {
         if(sequence.empty())
             return false;
-		return helper(sequence,0,sequence.size()-1);
+		return helper(sequence, 0, sequence.size() - 1);
     }
 private:
-    bool helper(vector<int> &sequence,int start,int end){
-        if(start>=end)
+    bool helper(vector<int>& sequence, int start, int end){
+        if (start >= end)
             return true;
-        int p=sequence[end];
-        int storeStart=start;
-        while(sequence[start]<sequence[end]){
+        int p = sequence[end];
+        int storeStart = start;
+        while (sequence[start] < sequence[end]) {
             start++;
         }
-        for(int i=start;i<end;i++){
-            if(sequence[i]<sequence[end])
+        for (int i = start; i < end; i++) {
+            if (sequence[i] < sequence[end])
                 return false;
         }    
-        return helper(sequence,storeStart,start-1)&&helper(sequence,start,end-1);
+        return helper(sequence, storeStart, start - 1) && helper(sequence, start, end - 1);
     }
 };

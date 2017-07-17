@@ -1,4 +1,5 @@
-#include<cstdlib>
+#include <cstdlib>
+#include <algorithm>
 using namespace std;
 
 struct TreeNode {
@@ -13,9 +14,9 @@ struct TreeNode {
 class Solution {
 public:
     void Mirror(TreeNode *pRoot) {
-		if(pRoot==NULL)
+		if (pRoot == NULL)
             return;
-        swap(pRoot->left,pRoot->right);
+        swap(pRoot->left, pRoot->right);
         Mirror(pRoot->left);
         Mirror(pRoot->right);
     }

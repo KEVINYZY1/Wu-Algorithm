@@ -15,23 +15,22 @@ struct ListNode {
 class Solution {
 public:
     ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
-    	if(pListHead==NULL)
+    	if (pListHead == NULL)
             return NULL;
-        if(k==0)
+        if (k == 0)
             return NULL;
-        auto tempHead=pListHead;
-        int storeK=k;
-        while(tempHead&&k>0){
+        auto tempHead = pListHead;
+        int storeK = k;
+        while (tempHead && k > 0) {
             k--;
-            tempHead=tempHead->next;
+            tempHead = tempHead->next;
         }
-        if(tempHead==NULL&&k>0){
-            
+        if (tempHead == NULL && k > 0) {
             return NULL;
         }
-        while(tempHead!=NULL){
-            tempHead=tempHead->next;
-            pListHead=pListHead->next;
+        while (tempHead != NULL) {
+            tempHead = tempHead->next;
+            pListHead = pListHead->next;
         }
         return pListHead;
     }

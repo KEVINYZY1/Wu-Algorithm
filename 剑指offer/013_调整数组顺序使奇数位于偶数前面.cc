@@ -14,17 +14,17 @@ public:
  * 5.終止條件：j向後遍歷查找失敗。
  */
     void reOrderArray(vector<int> &array) {
-        if(array.empty())
+        if (array.empty())
             return;
-        int index1=0;
-        int index2=0;
-        for(int i=0;i<array.size();i++){
-            if((array[i]&1)==1){
-                int temp=array[i];
-                for(int j=i;j>index1;j--){
-                    swap(array[j],array[j-1]);
+        int index1 = 0;
+        int index2 = 0;
+        for (int i = 0; i < array.size(); i++) {
+            if ((array[i] & 1) == 1) {
+                int temp = array[i];
+                for (int j = i; j > index1; j--) {
+                    swap(array[j], array[j - 1]);
                 }
-                array[index1]=temp;
+                array[index1] = temp;
                 index1++;
             } 
         }

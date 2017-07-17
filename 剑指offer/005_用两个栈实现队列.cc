@@ -8,22 +8,23 @@ class Solution
 {
 public:
     void push(int node) {
-        stack2.push(node);
+        stack1.push(node);
     }
 
     int pop() {
-        if(!stack1.empty()){
-            int temp=stack1.top();
-            stack1.pop();
+        if (stack2.empty()) {
+            while (!stack1.empty()) {
+                stack2.push(stack1.top());
+                stack1.pop();
+            }
+            int temp = stack2.top();
+            stack2.pop();
+            return temp;
+        } else {
+            int temp = stack2.top();
+            stack2.pop();
             return temp;
         }
-        while(!stack2.empty()){
-            stack1.push(stack2.top());
-            stack2.pop();
-        }
-        int temp=stack1.top();
-        stack1.pop();
-        return temp;
     }
 
 private:

@@ -15,15 +15,15 @@ struct ListNode {
 class Solution {
 public:
     ListNode* ReverseList(ListNode* pHead) {
-		if(pHead==NULL)
+		if (pHead == NULL)
             return NULL;
-        ListNode* pre=NULL;
-        auto cur=pHead;
-        while(cur!=NULL){
-            auto temp=pre;
-            pre=cur;
-            cur=cur->next;
-            pre->next=temp;
+        ListNode* pre = NULL;
+        auto cur = pHead;
+        while (cur != NULL) {
+            auto temp = pre;
+            pre = cur;
+            cur = cur->next;
+            pre->next = temp;
         }
         return pre;
     }

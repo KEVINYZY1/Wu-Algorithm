@@ -9,22 +9,22 @@ using namespace std;
 class Solution {
 public:
     int minNumberInRotateArray(vector<int> rotateArray) {
-        //assert(!rotateArray.empty());
-        const int len=rotateArray.size();
-        int low=0;
-        int high=len-1;
-        int mid=0;
-        while(low<high){
-            mid=low+(high-low)/2;
-          	if(mid==low)
+        int res = 0;
+        if (rotateArray.empty())
+            return res;
+        int low = 0;
+        int high = rotateArray.size();
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (mid == low) {
                 return rotateArray[high];
-            if(rotateArray[mid]>=rotateArray[low]){
-                low=mid;//最小值在low+1到high之间。
             }
-            else if(rotateArray[mid]<rotateArray[low]){
-                high=mid;
+            if (rotateArray[mid] >= rotateArray[low]) {
+                low = mid;
+            } else {
+                high = mid;
             }
         }
-        return rotateArray[low]; 
+        return rotateArray[low];
     }
 };

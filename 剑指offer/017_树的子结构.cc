@@ -15,24 +15,23 @@ struct TreeNode {
 
 class Solution {
 public:
-    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2)
-    {
-        if(pRoot1==NULL || pRoot2==NULL)
-            return false;
-		if(pRoot1->val==pRoot2->val){
-            if(isSameTree(pRoot1,pRoot2))
+    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2) {
+        if (pRoot1 == NULL || pRoot2 == NULL)
+            return false; 
+		if (pRoot1->val == pRoot2->val) {
+            if(isSameTree(pRoot1, pRoot2))
                 return true;
         }
-        return HasSubtree(pRoot1->left,pRoot2)||HasSubtree(pRoot1->right,pRoot2);
+        return HasSubtree(pRoot1->left, pRoot2) || HasSubtree(pRoot1->right, pRoot2);
     }
 private:
-    bool isSameTree(TreeNode* pRoot1, TreeNode* pRoot2){
-        if(pRoot2==NULL)
+    bool isSameTree(TreeNode* pRoot1, TreeNode* pRoot2) {
+        if (pRoot2 == NULL)
             return true;
-        if(pRoot1==NULL)//别忘
+        if (pRoot1 == NULL)//别忘
             return false;
-		if(pRoot1->val!=pRoot2->val)
+		if (pRoot1->val != pRoot2->val)
             return false;
-        return isSameTree(pRoot1->left,pRoot2->left)&& isSameTree(pRoot1->right,pRoot2->right);
+        return isSameTree(pRoot1->left, pRoot2->left) && isSameTree(pRoot1->right, pRoot2->right);
     }
 };

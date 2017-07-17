@@ -1,5 +1,6 @@
-#include<cstdlib>
-#include<vector>
+#include <cstdlib>
+#include <vector>
+#include <stack>
 using namespace std;
 
 struct ListNode {
@@ -14,18 +15,19 @@ struct ListNode {
 class Solution {
 public:
     vector<int> printListFromTailToHead(ListNode* head) {
-        vector<int>result;
-        if(head==NULL)
-            return result;
-        vector<ListNode *> node;
-        auto temp=head;
-        while(temp!=NULL){
-			node.push_back(temp);
-            temp=temp->next;
+        //用栈
+        vector<int> res;
+        if (head == NULL)
+            return res;
+        stack<int> s;
+        while (head != NULL) {
+            s.push(head->val);
+            head = head->next;
         }
-        for(int i=node.size()-1;i>=0;i--){
-            result.push_back(node[i]->val);
+        while (!s.empty()) {
+            res.push_back(s.top());
+            s.pop();
         }
-        return result;
+		return res;
     }
 };

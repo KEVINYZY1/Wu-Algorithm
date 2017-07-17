@@ -8,19 +8,20 @@ using namespace std;
 class Solution {
 public:
     int MoreThanHalfNum_Solution(vector<int> numbers) {
-    	const int len= numbers.size();
-        int count=0;
-        int index=0;
-        for(int i=1;i<len;i++){
-            if(numbers[i]==numbers[i-1]){
-                count++;
-                index=i;
+    	int candidate = 0;
+        int count = 0;
+        for(int i = 0; i < numbers.size(); i ++){
+            if(count == 0){
+                candidate = numbers[i];
+                count = 1;
             }
-            else if(count==0)
-                index=i+1;
+            else{
+                if(numbers[i] == candidate)
+                    count ++;
+                else
+                    count --;
+            }
         }
-        if(index==len)
-            return 0;
-        else return numbers[index];
+        return candidate;
     }
 };

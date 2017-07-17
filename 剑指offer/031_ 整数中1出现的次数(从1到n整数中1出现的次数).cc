@@ -10,7 +10,8 @@ public:
         long long exp = 1;//小心溢出
         long long ans = 0; 
         while(n/exp){
-            ans += n/(exp * 10) * exp;
+            ans += n/(exp * 10) * exp;//个位数的1
+            //剩下开始判断，
             if(n % (exp * 10) / exp  > 1) 
                 ans += exp;
             else if(n % (exp * 10) / exp == 1) 
@@ -20,3 +21,7 @@ public:
         return ans;
     }
 };
+
+//衍生题   如果是其他数字呢
+
+//当计算0出现的次数时候

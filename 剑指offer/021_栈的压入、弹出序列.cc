@@ -9,27 +9,26 @@ using namespace std;
 class Solution {
 public:
     bool IsPopOrder(vector<int> pushV,vector<int> popV) {
-        if(popV.empty())
+        if (popV.empty())
             return true;
-        if(pushV.empty())
+        if (pushV.empty())
             return false;
-        stack<int>s;
-        int i=0;
-        int j=0;
+        stack<int> s;
+        int i = 0;
+        int j = 0;
         s.push(pushV[i]);
         i++;
-        while(!s.empty()){
-            int t=s.top();
-            if(t==popV[j]){
+        while (!s.empty()) {
+            int t = s.top();
+            if (t == popV[j]) {
                 s.pop();
-                if(i<pushV.size()){
+                if (i < pushV.size()) {
                     s.push(pushV[i]);
                     i++;
                 }
                 j++;
-            }
-            else{
-                if(i<pushV.size()){
+            } else {
+                if (i < pushV.size()) {
                 	s.push(pushV[i]);
                 	i++;
                 }

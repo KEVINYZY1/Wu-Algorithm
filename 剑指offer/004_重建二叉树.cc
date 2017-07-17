@@ -16,27 +16,28 @@ struct TreeNode {
 
 class Solution {
 public:
-    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
-		if(pre.empty())
-            return NULL;
-        TreeNode* root=NULL;
-        map<int,int> inorder;
-        for(int i=0;i<vin.size();i++){
-            inorder[vin[i]]=i;
+    TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> vin) {
+		TreeNode* root = NULL;
+        if (vin.empty() || pre.empty())
+            return root;
+        const int len = pre.size();
+        map<int, int> m;
+        for (int i = 0; i < len; i++) {
+            m[vin[i]] = i;
         }
-        return buildBinaryTree(root,pre,0,pre.size()-1,inorder,0,pre.size()-1);
-        
+        return buildBinaryTree(root, pre, 0, len - 1, m, 0, len - 1);
     }
 private:
-    TreeNode* buildBinaryTree(TreeNode* root, vector<int> &pre,int s0,int e0,map<int,int> &inorder,int s1,int e1){
-        if(s0>e0)
+    TreeNode* buildBinaryTree(TreeNode * root, vector<int>& pre, int s1, int e1,
+                              map<int, int>& m, int s2, int e2) {
+        if (s1 > e1)
             return NULL;
-        root=new TreeNode(pre[s0]);
-        int m=inorder[pre[s0]];
-        int leftTreeLength=m-s1;
-        int rightTreeLength=e1-m;
-        root->left=buildBinaryTree(root->left,pre,s0+1,s0+leftTreeLength,inorder,s1,s1+leftTreeLength-1);
-        root->right=buildBinaryTree(root->right,pre,s0+1+leftTreeLength,e0,inorder,s1+leftTreeLength+1,e1);
+        root = new TreeNode(pre[s1]);
+        int num = m[pre[s1]];
+        int leftLength = num - s2;
+        int rightLength = e2 - num;
+        root->left = buildBinaryTree(root->left, pre, s1 + 1, s1 + leftLength, m, s2, s2 + leftLength - 1);
+        root->right = buildBinaryTree(root->right, pre, s1 + leftLength + 1, e1, m, num + 1, e2);
         return root;
     }
 };
