@@ -13,31 +13,29 @@ class Solution {
 public:
     vector<vector<int> > FindContinuousSequence(int sum) {
         vector<vector<int> > result;
-        if(sum<=2)
+        if (sum <= 2)
             return result;
         deque<int> nums;
-        int small=1;
-        int big=2;
+        int small = 1;
+        int big = 2;
         nums.push_back(small);
         nums.push_back(big);
-        int s=small+big;
-        while(small<big){
-            if(s<sum){
+        int s = small + big;
+        while (small < big) {
+            if (s < sum) {
                 nums.push_back(++big);
-                s+=big;
-            }
-            else if(s>sum){
+                s += big;
+            } else if (s > sum) {
                 nums.pop_front();
-                s-=small;
+                s -= small;
                 small++;
-            }
-            else {
-                vector<int>temp(nums.begin(),nums.end());
+            } else {
+                vector<int> temp(nums.begin(), nums.end());
                 result.push_back(temp);
                 nums.push_back(++big);
-                s+=big;
+                s += big;
             }
-            if(small==(sum+1)/2)
+            if (small == (sum + 1) / 2)
                 break;
         }
         return result;

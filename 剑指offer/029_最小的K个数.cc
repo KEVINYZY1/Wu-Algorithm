@@ -7,46 +7,44 @@ using namespace std;
 class Solution {
 public:
     vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
-        const int len=input.size();
+        const int len = input.size();
         vector<int> result;
-        if(k==0||k>len)
+        if (k == 0 || k > len)
             return result;
-        if(k==len)
+        if (k == len)
             return input;
-        findKNums(input,result,k,0,len-1);
+        findKNums(input, result, k, 0, len - 1);
         return result;
     }
 private: 
-    void findKNums(vector<int>&input,vector<int>&result,int k,int start,int end){
-        if(start>end)
-            return ;
-        int pivotIndex=start;
-        int pivot=input[pivotIndex];
-        int leftIndex=start+1;
-        for(int i=start+1;i<=end;i++){
-            if(input[i]<pivot){
-                swap(input[i],input[leftIndex]);
+    void findKNums(vector<int>& input, vector<int>& result, int k, int start, int end) {
+        if (start > end)
+            return;
+        int pivotIndex = start;
+        int pivot = input[pivotIndex];
+        int leftIndex = start + 1;
+        for (int i = start + 1; i <= end; i++) {
+            if (input[i] < pivot) {
+                swap(input[i], input[leftIndex]);
                 leftIndex++;
             }
         }
-        if(leftIndex!=start+1){
-        	swap(input[pivotIndex],input[leftIndex-1]);
+        if (leftIndex != start + 1) {
+        	swap(input[pivotIndex], input[leftIndex-1]);
             leftIndex--;
         }
-        else leftIndex=start;
+        else leftIndex = start;
         
-        if(k==leftIndex-start+1){
-            for(int i=start;i<=leftIndex;i++)
+        if (k == leftIndex - start + 1) {
+            for (int i = start; i <= leftIndex; i++)
             	result.push_back(input[i]);
-        }
-        else {
-            if(k<leftIndex-start+1){
-            	findKNums(input,result,k,start,leftIndex-1);
-            }
-            else {
-                for(int i=start;i<=leftIndex;i++)
+        } else {
+            if (k < leftIndex - start + 1) {
+            	findKNums(input, result, k, start, leftIndex - 1);
+            } else {
+                for (int i = start; i <= leftIndex; i++)
             		result.push_back(input[i]);
-                findKNums(input,result,k-(leftIndex-start+1),leftIndex+1,end);
+                findKNums(input, result, k - (leftIndex - start + 1), leftIndex + 1, end);
             }
         }
     }

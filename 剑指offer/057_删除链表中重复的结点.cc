@@ -13,30 +13,37 @@ struct ListNode {
 //在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
 //例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
 
+
 class Solution {
 public:
-    ListNode* deleteDuplication(ListNode* pHead){
-		if(pHead==NULL||pHead->next==NULL)
-            return pHead;
-        ListNode *dump=new ListNode(-1);
-        dump->next=pHead;
-        auto temp=dump;
-        while(temp &&temp->next){
-            if(temp->next->next==NULL)
-                break;
-            if(temp->next->val==temp->next->next->val){
-                auto node=temp->next->next->next;
-                while(node!=NULL && node->val==temp->next->val){
-                    node=node->next;
+    ListNode* deleteDuplication(ListNode* pHead) {
+		if (pHead == nullptr)
+            return nullptr;
+        auto newHead = new ListNode(pHead->val - 1);
+        newHead->next = pHead;
+        auto lastHead = newHead;
+        while (pHead != nullptr) {
+            int temp = pHead->val;
+            auto storePHead = pHead;
+            bool isDup = false;
+            pHead = pHead->next;
+            while (pHead != nullptr && pHead->val == temp) {
+                pHead = pHead->next;
+                isDup = true;
+            }
+            if (isDup) {
+                auto prev = storePHead;
+                while (storePHead != nullptr && storePHead->val == temp) {
+                    storePHead = storePHead->next;
+                    delete prev;
+                    prev = storePHead;
                 }
-                temp->next=node;
+                lastHead->next = pHead;
             }
-            else{
-                temp=temp->next;
-            }
+            else lastHead = lastHead->next;
         }
-        pHead=dump->next;
-        delete dump;
-        return pHead;
+        auto result = newHead->next;
+        delete newHead;
+        return result;
     }
 };

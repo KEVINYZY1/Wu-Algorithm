@@ -15,26 +15,25 @@ struct TreeNode {
 
 class Solution {
 public:
-    TreeNode* Convert(TreeNode* pRootOfTree)
-    {
-        TreeNode *pLastofTree=NULL;
-        buildList(pRootOfTree,pLastofTree);
-        while(pLastofTree&&pLastofTree->left){
-            pLastofTree=pLastofTree->left;
+    TreeNode* Convert(TreeNode* pRootOfTree) {
+        TreeNode *pLastofTree = NULL;
+        buildList(pRootOfTree, pLastofTree);
+        while (pLastofTree && pLastofTree->left) {
+            pLastofTree = pLastofTree->left;
         }
         return pLastofTree;
     }
 private:
-    void buildList(TreeNode* pRootOfTree,TreeNode* &pLastofTree){
-        if(pRootOfTree==NULL)
+    void buildList(TreeNode* pRootOfTree, TreeNode* &pLastofTree) {
+        if (pRootOfTree == NULL)
             return;
-        if(pRootOfTree->left)
-            buildList(pRootOfTree->left,pLastofTree);
-		if(pLastofTree)
-        	pLastofTree->right=pRootOfTree;
-        pRootOfTree->left=pLastofTree;
-        pLastofTree=pRootOfTree;//这句别忘
-        if(pRootOfTree->right)
-            buildList(pRootOfTree->right,pLastofTree);
+        if (pRootOfTree->left)
+            buildList(pRootOfTree->left, pLastofTree);
+		if (pLastofTree)
+        	pLastofTree->right = pRootOfTree;
+        pRootOfTree->left = pLastofTree;
+        pLastofTree = pRootOfTree;//这句别忘
+        if (pRootOfTree->right)
+            buildList(pRootOfTree->right, pLastofTree);
     }
 };

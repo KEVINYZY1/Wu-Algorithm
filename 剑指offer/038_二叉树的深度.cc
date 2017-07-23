@@ -13,10 +13,10 @@ struct TreeNode {
 class Solution {
 public:
     int TreeDepth(TreeNode* pRoot){
-    	if(pRoot==NULL)
+    	if (pRoot == NULL)
             return 0;
-        int leftDepth=TreeDepth(pRoot->left);
-        int rightDepth=TreeDepth(pRoot->right);
-        return leftDepth>rightDepth?leftDepth+1:rightDepth+1;
+        int leftDepth = TreeDepth(pRoot->left);
+        int rightDepth = TreeDepth(pRoot->right);
+        return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
     }
 };

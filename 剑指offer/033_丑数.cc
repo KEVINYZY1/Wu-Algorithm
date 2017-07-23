@@ -7,27 +7,27 @@ using namespace std;
 class Solution {
 public:
     int GetUglyNumber_Solution(int index) {
-        if(index==0)
+        if (index == 0)
             return 0;
-    	if(index==1)
+    	if (index == 1)
             return 1;
-        int index2=0,index3=0,index5=0;
-        int result=1;
-        vector<int>ugly;
+        int index2 = 0, index3 = 0, index5 = 0;
+        int result = 1;
+        vector<int> ugly;
         ugly.push_back(1);
-        while(index>1){
-            int minNum=min(ugly[index2]*2,min(ugly[index3]*3,ugly[index5]*5));
-            if(minNum==ugly[index2]*2)
+        while (index > 1) {
+            int minNum = min(ugly[index2] * 2, min(ugly[index3] * 3, ugly[index5] * 5));
+            if (minNum == ugly[index2] * 2)
                 index2++;
-            else if(minNum==ugly[index3]*3)
+            else if (minNum == ugly[index3] * 3)
                 index3++;
             else index5++;
             ugly.push_back(minNum);
             
-            result=minNum;
-            if(ugly[index3]*3<=result)//关键，有可能2*3和3*2都是一个数但是，index2++了，index3没有++
+            result = minNum;
+            if (ugly[index3] * 3 <= result)//关键，有可能2*3和3*2都是一个数但是，index2++了，index3没有++
                 index3++;
-            if(ugly[index5]*5<=result)
+            if (ugly[index5] * 5 <= result)
                 index5++;
             index--;
         }

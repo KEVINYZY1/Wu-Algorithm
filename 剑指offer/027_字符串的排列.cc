@@ -10,30 +10,29 @@ using namespace std;
 class Solution {
 public:
     vector<string> Permutation(string str) {
-        
-        vector<string>result;
-        if(str.empty())
+        vector<string> result;
+        if (str.empty())
             return result;
         //sort(str.begin(),str.end());
-        findPermutation(result,str,0,str.size()-1);
-        sort(result.begin(),result.end());
+        findPermutation(result, str, 0, str.size() - 1);
+        sort(result.begin(), result.end());
         return result;
     }
-    void findPermutation(vector<string>&result,string str,int start,int end){
-        if(start>=end){
+    void findPermutation(vector<string>& result, string str, int start, int end) {
+        if (start >= end) {
             result.push_back(str);
             return;
         }
-        for(int i=start;i<=end;i++){
+        for (int i = start; i <= end; i++) {
             int k;
-            for(k=start;k<i;k++)
-                if(str[k]==str[i])
+            for (k = start; k < i; k++)
+                if (str[k] == str[i])
                 	break; 
-            if(k<i)
+            if (k < i)
                 continue;
-            swap(str[i],str[start]);
-            findPermutation(result,str,start+1,end);//注意start的值只加1
-            swap(str[i],str[start]);
+            swap(str[i], str[start]);
+            findPermutation(result, str, start + 1, end);//注意start的值只加1
+            swap(str[i], str[start]);
         }
     }
 };

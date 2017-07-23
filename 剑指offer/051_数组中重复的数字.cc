@@ -9,15 +9,15 @@ using namespace std;
 class Solution1 {
 public:
     bool duplicate(int numbers[], int length, int* duplication) {
-        if(length<=0)
+        if (length <= 0)
             return false;
-        vector<int>hash(length,0);
-        for(int i=0;i<length;i++){
+        vector<int> hash(length, 0);
+        for (int i = 0; i < length; i++) {
             hash[numbers[i]]++;
         }
-        for(int i=0;i<length;i++){
-            if(hash[numbers[i]]>1){
-                *duplication=numbers[i];
+        for (int i = 0; i < length; i++) {
+            if (hash[numbers[i]] > 1) {
+                *duplication = numbers[i];
                 return true;
             }
         }
@@ -31,12 +31,12 @@ public:
 class Solution2 {
 public:
     bool duplicate(int numbers[], int length, int* duplication) {
-        for(int i=0;i<length;i++){
+        for (int i = 0; i < length; i++) {
         	int index = numbers[i];
-        	if(index>=length){
-            	index-=length;
+        	if (index >= length) {
+            	index -= length;
         	}   
-        	if(numbers[index]>=length){
+        	if (numbers[index] >= length) {
             	return index;
         	}   
         	numbers[index] = numbers[index] + length;

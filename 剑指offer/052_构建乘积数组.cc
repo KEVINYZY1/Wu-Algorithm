@@ -8,20 +8,20 @@ using namespace std;
 class Solution {
 public:
     vector<int> multiply(const vector<int>& A) {
-    	vector<int>B;
-        if(A.empty())
+    	vector<int> B;
+        if (A.empty())
             return B;
-        const int len=A.size();
-        int temp=1;
+        const int len = A.size();
+        int temp = 1;
         B.push_back(temp);
-        for(int i=1;i<len;i++){
-            temp*=A[i-1];
+        for (int i = 1; i < len; i++) {
+            temp *= A[i - 1];
             B.push_back(temp);
         }
-        temp=1;
-        for(int i=len-2;i>=0;i--){
-            temp*=A[i+1];
-            B[i]*=temp;
+        temp = 1;
+        for (int i = len - 2; i >= 0; i--) {
+            temp *= A[i + 1];
+            B[i] *= temp;
         }
         return B;
     }

@@ -1,6 +1,7 @@
 #include<cstdlib>
-#include<vector>
-#include<queue>
+#include <vector>
+#include <string>
+#include <queue>
 using namespace std;
 
 struct TreeNode {
@@ -13,9 +14,10 @@ struct TreeNode {
 class Solution {
 public:
     char* Serialize(TreeNode *root) {    
-        if(!root) return "#";
+        if (!root)
+            return "#";
         string r = to_string(root->val);
-        r.push_back(',');
+        r += ',';
         char *left = Serialize(root->left);
         char *right = Serialize(root->right);
         char *ret = new char[strlen(left) + strlen(right) + r.size()];
@@ -27,14 +29,14 @@ public:
     TreeNode* Deserialize(char *str) {
     	return decode(str);
     }
-    TreeNode* decode(char *&str) {
-        if(*str=='#'){
+    TreeNode* decode(char*& str) {
+        if (*str == '#') {
             str++;
             return NULL;
         }
         int num = 0;
-        while(*str != ',')
-            num = num*10 + (*(str++)-'0');
+        while (*str != ',')
+            num = num * 10 + (*(str++) - '0');
         str++;
         TreeNode *root = new TreeNode(num);
         root->left = decode(str);

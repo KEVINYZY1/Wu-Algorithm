@@ -15,20 +15,20 @@ struct TreeNode {
 
 class Solution {
 public:
-    bool isSymmetrical(TreeNode* pRoot){
-    	if(pRoot==NULL)
+    bool isSymmetrical(TreeNode* pRoot) {
+    	if (pRoot == NULL)
             return true;
-        return helper(pRoot->left,pRoot->right);
+        return helper(pRoot->left, pRoot->right);
     }
 private:
-    bool helper(TreeNode* l,TreeNode*r){
-        if(l==NULL&&r==NULL)
+    bool helper(TreeNode* l, TreeNode*r) {
+        if (l == NULL && r==NULL)
             return true;
-        if(l==NULL||r==NULL)
+        if (l == NULL || r == NULL)
             return false;
-        if(l->val!=r->val)
+        if (l->val != r->val)
             return false;
-        return helper(l->left,r->right)&&helper(l->right,r->left);
+        return helper(l->left, r->right) && helper(l->right, r->left);
     }
 
 };

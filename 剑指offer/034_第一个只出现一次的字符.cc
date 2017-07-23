@@ -8,20 +8,20 @@ using namespace std;
 class Solution {
 public:
     int FirstNotRepeatingChar(string str) {
-        if(str.empty())
+        if (str.empty())
             return -1;
         //可以不用pair，第二次直接遍历str，看哪个在hash表最先是1，谁就是最早第一个。
-        vector<pair<int,int>>hash(256,make_pair(0,-1));
-        for(int i=0;i<str.size();i++){
-            char a=0;
-            hash[str[i]-a].first++;
-            if(hash[str[i]-a].second==-1)
-                hash[str[i]-a].second=i;
+        vector<pair<int,int> > hash(256, make_pair(0, -1));
+        for (int i = 0; i < str.size(); i++) {
+            char a = 0;
+            hash[str[i] - a].first++;
+            if (hash[str[i] - a].second == -1)
+                hash[str[i] - a].second = i;
         }
-        int result=10001;
-        for(int i=0;i<256;i++){
-            if(hash[i].first==1)
-                result=min(result,hash[i].second);
+        int result = 10001;
+        for (int i = 0; i < 256; i++) {
+            if (hash[i].first == 1)
+                result = min(result, hash[i].second);
         }
         return result;
     }

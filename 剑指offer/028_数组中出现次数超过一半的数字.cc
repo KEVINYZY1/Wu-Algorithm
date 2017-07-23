@@ -10,16 +10,15 @@ public:
     int MoreThanHalfNum_Solution(vector<int> numbers) {
     	int candidate = 0;
         int count = 0;
-        for(int i = 0; i < numbers.size(); i ++){
-            if(count == 0){
+        for (int i = 0; i < numbers.size(); i++) {
+            if (count == 0) {
                 candidate = numbers[i];
                 count = 1;
-            }
-            else{
-                if(numbers[i] == candidate)
-                    count ++;
+            } else {
+                if (numbers[i] == candidate)
+                    count++;
                 else
-                    count --;
+                    count--;
             }
         }
         return candidate;

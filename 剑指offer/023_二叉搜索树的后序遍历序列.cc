@@ -17,7 +17,7 @@ struct TreeNode {
 class Solution {
 public:
     bool VerifySquenceOfBST(vector<int> sequence) {
-        if(sequence.empty())
+        if (sequence.empty())
             return false;
 		return helper(sequence, 0, sequence.size() - 1);
     }
@@ -27,13 +27,16 @@ private:
             return true;
         int p = sequence[end];
         int storeStart = start;
+        //找出右子树
         while (sequence[start] < sequence[end]) {
             start++;
         }
+        //检查右子树
         for (int i = start; i < end; i++) {
             if (sequence[i] < sequence[end])
                 return false;
         }    
+        //递归检查
         return helper(sequence, storeStart, start - 1) && helper(sequence, start, end - 1);
     }
 };

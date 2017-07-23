@@ -7,30 +7,30 @@ class Solution {
 public:
     void push(int value) {
         s.push(value);
-        if(minS.empty())
+        if (minS.empty())
             minS.push(value);
-        else{
-            auto temp=minS.top();
-            if(value<=temp)
+        else {
+            auto temp = minS.top();
+            if (value <= temp)
                 minS.push(value);
             else minS.push(temp);
         }
     }
     void pop() {
-        if(!s.empty())
+        if (!s.empty())
         	s.pop();
-        if(!minS.empty())
+        if (!minS.empty())
         	minS.pop();
     }
     int top() {
-        int temp=s.top();
+        int temp = s.top();
         return temp;
     }
     int min() {
-        int temp=minS.top();
+        int temp = minS.top();
         return temp;
     }
 private:
-    stack<int>s;
-    stack<int>minS;
+    stack<int> s;
+    stack<int> minS;
 };

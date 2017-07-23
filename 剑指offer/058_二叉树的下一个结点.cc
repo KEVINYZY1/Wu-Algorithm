@@ -17,22 +17,22 @@ struct TreeLinkNode {
 class Solution {
 public:
     //后继
-    TreeLinkNode* GetNext(TreeLinkNode* pNode){
-        if(pNode==NULL)
+    TreeLinkNode* GetNext(TreeLinkNode* pNode) {
+        if (pNode == NULL)
             return NULL;
-        if(pNode->right){
-            pNode=pNode->right;
-            while(pNode->left!=NULL){
-                pNode=pNode->left;
+        if (pNode->right) {
+            pNode = pNode->right;
+            while (pNode->left != NULL) {
+                pNode = pNode->left;
             }
             return pNode;
         }
-        auto parent=pNode->next;
-        while(parent!=NULL && parent->right==pNode){
-            pNode=pNode->next;
-            parent=parent->next;
+        auto parent = pNode->next;
+        while (parent != NULL && parent->right == pNode) {
+            pNode = pNode->next;
+            parent = parent->next;
         }
-        if(parent!=NULL)
+        if (parent != NULL)
             return parent;
         return NULL;
     }

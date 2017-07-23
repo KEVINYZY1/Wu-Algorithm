@@ -12,24 +12,24 @@ struct TreeNode {
 
 class Solution {
 public:
-    TreeNode* KthNode(TreeNode* pRoot, int k){
-        if (pRoot==NULL)
+    TreeNode* KthNode(TreeNode* pRoot, int k) {
+        if (pRoot == NULL)
             return NULL;
         stack<TreeNode*> node;
-        int count=0;
-        while(pRoot!=NULL || !node.empty()){
-            while(pRoot!=NULL){
+        int count = 0;
+        while (pRoot != NULL || !node.empty()) {
+            while(pRoot != NULL) {
                 node.push(pRoot);
-                pRoot=pRoot->left;
+                pRoot = pRoot->left;
                 
             }
-            if(!node.empty()){
-                pRoot=node.top();
+            if (!node.empty()) {
+                pRoot = node.top();
                 node.pop();
                 count++;
-                if(count==k)
+                if (count == k)
                     return pRoot;
-                pRoot=pRoot->right;
+                pRoot = pRoot->right;
             }
         }
         return NULL;

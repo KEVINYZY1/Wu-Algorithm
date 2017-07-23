@@ -13,22 +13,22 @@ struct TreeNode {
 class Solution {
 public:
     vector<vector<int> > Print(TreeNode* pRoot) {
-      	vector<vector<int> >result;
-        if(pRoot==NULL)
+      	vector<vector<int> > result;
+        if (pRoot == NULL)
             return result;
         queue<TreeNode*> q1;
         q1.push(pRoot);
 
-        while(!q1.empty()){
-            queue<TreeNode*>q2;
-            vector<int>temp;
-            while(!q1.empty()){
-            	auto node=q1.front();
+        while (!q1.empty()) {
+            queue<TreeNode*> q2;
+            vector<int> temp;
+            while (!q1.empty()) {
+            	auto node = q1.front();
             	q1.pop();
                 temp.push_back(node->val);
-            	if(node->left)
+            	if (node->left)
                 	q2.push(node->left);
-            	if(node->right)
+            	if (node->right)
                 	q2.push(node->right);
             }
 
