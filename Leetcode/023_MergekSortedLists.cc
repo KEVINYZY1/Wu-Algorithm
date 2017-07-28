@@ -13,17 +13,17 @@ struct ListNode {
 class Solution1 {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        vector<ListNode*>tempLists;
-        if(lists.empty())
+        vector<ListNode*> tempLists;
+        if (lists.empty())
             return NULL;
-        while(lists.size()!=1){
+        while (lists.size() != 1) {
             tempLists.clear();
-            for(int i=0;i<lists.size();i+=2){
-                if(i+1==lists.size()){
+            for (int i = 0; i < lists.size(); i += 2) {
+                if (i + 1 == lists.size()) {
                     tempLists.push_back(lists[i]);
                     break;
                 }
-                tempLists.push_back(mergeTwoLists(lists[i],lists[i+1]));
+                tempLists.push_back(mergeTwoLists(lists[i], lists[i + 1]));
             }
             tempLists.swap(lists);
         }
@@ -31,23 +31,25 @@ public:
     }
 private:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode* dump=new ListNode(-1);
+        ListNode* dump = new ListNode(-1);
         ListNode* newHead;
-        newHead=dump;//这里重新做时候，犯了错误，要仔细理解指针的含义
-        while(l1&&l2){
-            if(l1->val<l2->val){
-                newHead->next=l1;
-                l1=l1->next;
+        newHead = dump;//这里重新做时候，犯了错误，要仔细理解指针的含义
+        while (l1 && l2) {
+            if (l1->val < l2->val) {
+                newHead->next = l1;
+                l1 = l1->next;
             }
-            else{
-                newHead->next=l2;
-                l2=l2->next;
+            else {
+                newHead->next = l2;
+                l2 = l2->next;
             }
-            newHead=newHead->next;
+            newHead = newHead->next;
         }
-        if(l1)newHead->next=l1;
-        else if(l2)newHead->next=l2;
-        newHead=dump->next;
+        if (l1)
+            newHead->next = l1;
+        else if (l2) 
+            newHead->next = l2;
+        newHead = dump->next;
         delete dump;
         return newHead;
     }
@@ -58,8 +60,8 @@ private:
 class Solution2 {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode* dump=new ListNode(-1);
-        ListNode* head=dump;
+        ListNode* dump = new ListNode(-1);
+        ListNode* head = dump;
 /*
 stl中的priority_queue 对于基本类型的使用方法相对简单。他的模板声明带有三个参数:
 priority_queue<Type, Container, Functional>
@@ -69,18 +71,18 @@ STL里面默认用的是 vector. 比较方式默认用 operator< , 所以如果�
 优先队列就是大顶堆，队头元素最大。        
 */
         priority_queue<ListNode*, vector<ListNode*>, newCmp> q;
-        for(int i=0;i<lists.size();i++){
-            if(lists[i])
+        for (int i = 0; i < lists.size(); i++) {
+            if (lists[i])
                 q.push(lists[i]);
         }
-        while(!q.empty()){
-            head->next=q.top();
-            head=head->next;
+        while (!q.empty()) {
+            head->next = q.top();
+            head = head->next;
             q.pop();
-            if(head->next)
+            if (head->next)
                 q.push(head->next);
         }
-        head=dump->next;
+        head = dump->next;
         delete dump;
         return head;
     }

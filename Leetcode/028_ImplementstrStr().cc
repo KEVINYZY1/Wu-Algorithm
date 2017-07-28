@@ -5,24 +5,24 @@ using namespace std;
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        const int haystackSize=haystack.size();
-        const int needleSize=needle.size();
-        if(haystackSize<needleSize)
+        const int haystackSize = haystack.size();
+        const int needleSize = needle.size();
+        if (haystackSize < needleSize)
             return -1;
-        if(needle.empty())
+        if (needle.empty())
             return 0;
-        for(int i=0;i<haystackSize;i++){
-            if(haystackSize-i<needleSize)
+        for (int i = 0; i < haystackSize; i++) {
+            if (haystackSize - i < needleSize)
                 return -1;
-            if(haystack[i]!=needle[0])
+            if (haystack[i] != needle[0])
                 continue;
-            else{
-                if(needleSize==1)
+            else {
+                if (needleSize == 1)
                     return i;
-                for(int j=1;j<needleSize;j++){
-                    if(needle[j]!=haystack[i+j])
+                for (int j = 1; j < needleSize; j++) {
+                    if (needle[j] != haystack[i + j])
                         break;
-                    if(j==needleSize-1)
+                    if (j == needleSize - 1)
                         return i;
                 }
             }

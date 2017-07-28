@@ -10,7 +10,7 @@ public:
     }
 
     int get(int key) {
-        if(!keyValue.count(key)) 
+        if (!keyValue.count(key)) 
             return -1;
         auto it = locator[key];
         frequency[keyValue[key].second++].erase(it);//删除原来的频率

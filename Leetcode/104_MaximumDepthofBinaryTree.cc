@@ -16,10 +16,10 @@ public:
     }
 private:
     int getMaxDepth(TreeNode* root) {
-        if(!root)
+        if (!root)
             return 0;
-        int ld=getMaxDepth(root->left);
-        int rd=getMaxDepth(root->right);
-        return ld>rd?(ld+1):(rd+1);
+        int ld = getMaxDepth(root->left);
+        int rd = getMaxDepth(root->right);
+        return ld > rd ? (ld + 1) : (rd + 1);
     }
 };

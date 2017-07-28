@@ -9,23 +9,23 @@ using namespace std;
 class Solution1 {
 public:
     void nextPermutation(vector<int>& nums) {
-        int first=nums.size()-1;
-        int second=first;
-        for(int i=nums.size()-1;i>0;i--){
-            if(nums[i]<=nums[i-1]){//这里要求是小于等于,因为要考虑重复元素的存在
+        int first = nums.size() - 1;
+        int second = first;
+        for (int i = nums.size() - 1; i > 0; i--) {
+            if (nums[i] <= nums[i - 1]) {//这里要求是小于等于,因为要考虑重复元素的存在
                 first--;
             }
             else break;
         }
         //全排列的最后一种，则返回第一种排序
-        if(first==0){
-            reverse(nums.begin(),nums.end());
+        if (first == 0) {
+            reverse(nums.begin(), nums.end());
             return;
         }
-        while(second>0&&nums[first-1]>=nums[second]){//等于号不能忘,因为要考虑重复元素的存在
+        while (second > 0 && nums[first - 1] >= nums[second]) {//等于号不能忘,因为要考虑重复元素的存在
             second--;
         }
-        swap(nums[second],nums[first-1]);
-        reverse(nums.begin()+first,nums.end());//这里别忘了
+        swap(nums[second], nums[first - 1]);
+        reverse(nums.begin() + first, nums.end());//这里别忘了
     }
 };

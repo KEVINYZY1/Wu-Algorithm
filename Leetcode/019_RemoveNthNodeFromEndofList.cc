@@ -13,20 +13,21 @@ public:
         ListNode* dump=new ListNode(-1);
         dump->next=head;//自己创建一个头节点，指向函数传进来的头节点，这样方便删除
         ListNode* cur=dump, *prev=dump;
-        if(head->next==NULL||head==NULL)return NULL;//因为n永远有效
-        while(n){
+        if (head->next == NULL || head == NULL)
+            return NULL;//因为n永远有效
+        while (n) {
             n--;
-            cur=cur->next;
+            cur = cur->next;
         }
-        while(cur&&cur->next){
-            cur=cur->next;
-            prev=prev->next;
+        while (cur && cur->next) {
+            cur = cur->next;
+            prev = prev->next;
         }
         //删除prev后面的那个节点
-        ListNode* temp=prev->next->next;
+        ListNode* temp = prev->next->next;
         delete prev->next;
-        prev->next=temp;
-        head=dump->next;
+        prev->next = temp;
+        head = dump->next;
         delete dump;
         return head;
     }

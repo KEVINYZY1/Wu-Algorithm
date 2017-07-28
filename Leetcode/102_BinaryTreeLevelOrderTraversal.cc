@@ -16,22 +16,23 @@ public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>>result;
         queue<TreeNode*>q1;//建立可以容纳树节点指针的队列
-        if(root==NULL)return result;
+        if (root == NULL)
+            return result;
         //如何将val按每层存放！
-        vector<int>temp;
+        vector<int> temp;
         q1.push(root);
-        do{
-            queue<TreeNode*>q2;
-            while(!q1.empty()){
+        do {
+            queue<TreeNode*> q2;
+            while (!q1.empty()) {
                 root=q1.front();
                 q1.pop();
                 temp.push_back(root->val);
-            if(root->left){
-                q2.push(root->left);
-            }
-            if(root->right){
-                q2.push(root->right);
-            }
+                if(root->left){
+                    q2.push(root->left);
+                }
+                if(root->right){
+                    q2.push(root->right);
+                }
             }
             result.push_back(temp);
             temp.clear();

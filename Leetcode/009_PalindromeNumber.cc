@@ -3,19 +3,20 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        if(x<0)return false;
-        int base=0;
-        int y=x;
-        while(y){
+        if (x < 0)
+            return false;
+        int base = 0;
+        int y = x;
+        while (y) {
             base++;
-            y/=10;
+            y /= 10;
         }
-        for(int i=0;i<base/2;++i){
-            int left=x/pow(10,base-1-i);
-            left%=10;
-            int temp=pow(10,i);
-            int right=(x/temp)%10;
-            if(right!=left)
+        for (int i = 0; i < base / 2; ++i) {
+            int left = x / pow(10, base - 1 - i);
+            left %= 10;
+            int temp = pow(10, i);
+            int right = (x / temp) % 10;
+            if (right != left)
                 return false;
         }
         return true;

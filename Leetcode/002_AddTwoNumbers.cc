@@ -1,82 +1,98 @@
 #include<cstdlib>
+/*
+You are given two non-empty linked lists representing two non-negative integers. 
+The digits are stored in reverse order and each of their nodes contain a single digit. 
+Add the two numbers and return it as a linked list.
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+*/
+
 struct ListNode {
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
+
 class Solution {
 public:
 //注意边界条件，比如进位之后又产生进位，以及l1，l2位数相同情况下，最高位产生进位
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        if (l1==NULL)return l2;
-        if (l2==NULL)return l1;
-        int curCarry=0,prevCarry=0;
-        ListNode *head=l1;
-        while(l1&&l2){
-            prevCarry=curCarry;
-            int temp=l1->val+l2->val;
-            if(temp>=10)curCarry=1;
-            else curCarry=0;
-            temp%=10;
-            l1->val=temp+prevCarry;
-            if(l1->val==10){
-                l1->val=0;
+        if (l1 == NULL)
+            return l2;
+        if (l2 == NULL)
+            return l1;
+        int curCarry = 0, prevCarry = 0;
+        ListNode *head = l1;
+        while (l1 && l2) {
+            prevCarry = curCarry;
+            int temp = l1->val + l2->val;
+            if (temp >= 10)    
+                curCarry=1;
+            else curCarry = 0;
+            temp %= 10;
+            l1->val = temp + prevCarry;
+            if (l1->val == 10) {
+                l1->val = 0;
                 curCarry++;
             }
-            l1=l1->next;
-            l2=l2->next;
+            l1 = l1->next;
+            l2 = l2->next;
         }
-        if((l1==NULL)&&(l2==NULL)){
-            ListNode*newhead=head;
-            if(curCarry){
+        if (l1 == NULL&& l2 == NULL) {
+            ListNode* newhead = head;
+            if (curCarry) {
                 //l1已经为NULL，再生成新节点，无法衔接给head
                 //l1=new ListNode(1);
-                while(head->next){
-                    head=head->next;
+                while (head->next) {
+                    head = head->next;
                 }
-                head->next=new ListNode(1);
+                head->next = new ListNode(1);
             }
             return newhead;
         }
-        if (l1){
-            l1->val+=curCarry;
-            ListNode*storeL1=l1;
-            while(l1->val==10){
-                l1->val=0;
-                l1=l1->next;
-                if(l1!=NULL)l1->val++;
+        if (l1) {
+            l1->val += curCarry;
+            ListNode* storeL1 = l1;
+            while (l1->val == 10) {
+                l1->val = 0;
+                l1 = l1->next;
+                if (l1 != NULL)
+                    l1->val++;
                 else {
-                    l1=storeL1;
-                    while(l1->next){
-                        l1=l1->next;
+                    l1 = storeL1;
+                    while (l1->next) {
+                        l1 = l1->next;
                     }
-                    l1->next=new ListNode(1);
+                    l1->next = new ListNode(1);
                     break;
                 }
             }
         }
-        if (l2){
-            ListNode*storeL2=l2;
-            l2->val+=curCarry;
-            while(l2->val==10){
-                l2->val=0;
-                l2=l2->next;
-                if(l2!=NULL)l2->val++;
+        if (l2) {
+            ListNode* storeL2 = l2;
+            l2->val += curCarry;
+            while (l2->val == 10) {
+                l2->val = 0;
+                l2 = l2->next;
+                if (l2 != NULL)
+                    l2->val++;
                 else {
-                    l2=storeL2;
-                    while(l2->next){
-                        l2=l2->next;
+                    l2 = storeL2;
+                    while (l2->next) {
+                        l2 = l2->next;
                     }
-                    l2->next=new ListNode(1);
+                    l2->next = new ListNode(1);
                     break;
                 }
             }
             //l1=l2;
-            ListNode*newhead=head;
-            while(head->next){
-                head=head->next;
+            ListNode* newhead = head;
+            while (head->next) {
+                head = head->next;
             }
-            head->next=storeL2;
+            head->next = storeL2;
             return newhead;
         }
         return head;
@@ -85,7 +101,7 @@ public:
 
 
 
-//错误答案，作为警示！！
+/*错误答案，作为警示！！
 class wrongSolution {
 public:
 //这是大数，越界了= =
@@ -133,3 +149,24 @@ private:
         return result;
     }
 };
+*/
+
+/*
+class Solution:
+# @return a ListNode
+def addTwoNumbers(self, l1, l2):
+    carry = 0
+    root = n = ListNode(0)
+    while l1 or l2 or carry:
+        v1 = v2 = 0
+        if l1:
+            v1 = l1.val
+            l1 = l1.next
+        if l2:
+            v2 = l2.val
+            l2 = l2.next
+        carry, val = divmod(v1+v2+carry, 10)
+        n.next = ListNode(val)
+        n = n.next
+    return root.next
+*/

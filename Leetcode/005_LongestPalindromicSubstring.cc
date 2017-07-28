@@ -1,4 +1,5 @@
-#include<string>
+#include <string>
+#include <vector>
 using namespace std;
 
 //方法一 暴力穷举法O(N3) 判断每个子字符串 不可取
@@ -9,38 +10,38 @@ class Solution1 {
 public:
     string longestPalindrome(string s) {
         string result,temp;
-        for(int i=0;i<s.size();++i){
-            temp=findLongestPalindrome(s,i);
-            if(temp.size()>result.size()){
-                result=temp;
+        for (int i = 0; i < s.size(); ++i) {
+            temp = findLongestPalindrome(s, i);
+            if (temp.size() > result.size()) {
+                result = temp;
             }
         }
-        for(int i=0;i<s.size()-1;++i){
-            temp=findLongestPalindrome(s,i,i+1);
-            if(temp.size()>result.size()){
-                result=temp;
+        for (int i = 0; i < s.size() - 1; ++i) {
+            temp = findLongestPalindrome(s, i, i + 1);
+            if (temp.size() > result.size()) {
+                result = temp;
             }
         }
         return result;
     }
 private:
     string findLongestPalindrome(string s,int pos) {
-        int i=1;
-        while((pos-i)>=0&&(pos+i)<s.size()){
-            if (s[pos-i]!=s[pos+i])
+        int i = 1;
+        while((pos - i) >= 0 && (pos+i) < s.size()) {
+            if (s[pos-i] != s[pos+i])
                 break;
             ++i;
         }
-        return s.substr(pos-i+1,2*i-1);
+        return s.substr(pos - i + 1, 2 * i - 1);
     }
-    string findLongestPalindrome(string s,int pos1,int  pos2) {
-        int i=0;
-        while((pos1-i)>=0&&(pos2+i)<s.size()){
-            if (s[pos1-i]!=s[pos2+i])
+    string findLongestPalindrome(string s, int pos1, int  pos2) {
+        int i = 0;
+        while ((pos1 - i) >= 0 && (pos2 + i) < s.size()) {
+            if (s[pos1 - i] != s[pos2 + i])
                 break;
             ++i;
         }
-        return s.substr(pos1-i+1,2*i);
+        return s.substr(pos1 - i + 1, 2 * i);
     }
 };
 
@@ -50,7 +51,7 @@ public:
     string longestPalindrome(string s) {
         string T = preProcess(s);
         int length = T.length();
-        vector<int> p (length,0);
+        vector<int> p(length, 0);
         int C = 0, R = 0;
         for (int i = 1; i < length - 1; i++){
             int i_mirror = C - (i - C);
@@ -89,15 +90,34 @@ private:
 //为了方便比较偶数中心的回文，在字符串中每个位置添加#
 //$^是为了方便边界检测
     string preProcess(string s) {
-         int n = s.length();
-         if (n == 0) return "^$";
-         string ret = "^";
-         for (int i = 0; i < n; i++)
-         {
-             ret += "#" + s.substr(i, 1);
-         }
-         
-         ret += "#$";
-         return ret;
+        int n = s.length();
+        if (n == 0) 
+            return "^$";
+        string ret = "^";
+        for (int i = 0; i < n; i++) {
+            ret += "#" + s.substr(i, 1);
+        }
+        
+        ret += "#$";
+        return ret;
     }
 };
+/*
+class Solution:
+    # @return a string
+    def longestPalindrome(self, s):
+        if len(s)==0:
+        	return 0
+        maxLen=1
+        start=0
+        for i in xrange(len(s)):
+        	if i-maxLen >=1 and s[i-maxLen-1:i+1]==s[i-maxLen-1:i+1][::-1]:
+        		start=i-maxLen-1
+        		maxLen+=2
+        		continue
+
+        	if i-maxLen >=0 and s[i-maxLen:i+1]==s[i-maxLen:i+1][::-1]:
+        		start=i-maxLen
+        		maxLen+=1
+        return s[start:start+maxLen]
+*/

@@ -13,25 +13,28 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int> > threeSum(vector<int>& nums) {
-        vector<vector<int> >res;
-        sort(nums.begin(),nums.end());
-        int index=0;//不要有未初始化的值
-        for(int i=0;i<nums.size();++i){
-            if(nums[i]>=0){index=i;break;}
+        vector<vector<int> > res;
+        sort(nums.begin(), nums.end());
+        int index = 0;//不要有未初始化的值
+        for (int i = 0;i < nums.size(); ++i) {
+            if (nums[i] >= 0) {
+                index=i;
+                break;
+            }
         }
-        for(int i=0;i<=index;i++){
-            if( i>0&&nums[i]==nums[i-1])  
+        for (int i = 0; i <= index; i++) {
+            if( i > 0 && nums[i] == nums[i-1])  
                 continue;//加上这句，终于不超时了。
-            for(int j=i+1,k=nums.size()-1;j<k; ){
-                int sum=nums[i]+nums[j]+nums[k];
-                if(sum>0){
+            for (int j = i + 1, k = nums.size() - 1; j < k;) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum > 0) {
                     k--;
                 }
-                else if(sum<0){
+                else if (sum < 0) {
                     j++;
                 }
-                else if(sum==0){
-                    res.push_back({nums[i],nums[j],nums[k]});
+                else if (sum == 0) {
+                    res.push_back({nums[i], nums[j], nums[k]});
                     j++;k--;
                     while(j<nums.size()&&nums[j]==nums[j-1])j++;
                     while(k>=0&&nums[k]==nums[k+1])k--;

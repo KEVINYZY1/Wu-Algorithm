@@ -1,41 +1,57 @@
 #include<vector>
 using namespace std;
+
+/*
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+
+Example 1:
+nums1 = [1, 3]
+nums2 = [2]
+
+The median is 2.0
+Example 2:
+nums1 = [1, 2]
+nums2 = [3, 4]
+
+The median is (2 + 3)/2 = 2.5
+*/
+
 //方法1 归并排序中的合并步骤  时间复杂度并不符合要求
 class Solution1 {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        double result=0;
-        if(nums1.empty()&&nums2.empty())
+        double result = 0;
+        if (nums1.empty() && nums2.empty())
             return result;
-        vector<int>nums;
-        int i=0,j=0;
-        while(i<nums1.size()&&j<nums2.size()){
-            if(nums1[i]<nums2[j]){
+        vector<int> nums;
+        int i = 0, j = 0;
+        while (i < nums1.size() && j < nums2.size()) {
+            if (nums1[i] < nums2[j]) {
                 nums.push_back(nums1[i]);
                 ++i;
-            }
-            else{
+            } else {
                 nums.push_back(nums2[j]);
                 ++j;
             }
         }
-        if(i<nums1.size()){
-            while(i<nums1.size()){
+        if (i < nums1.size()) {
+            while (i < nums1.size()) {
                 nums.push_back(nums1[i++]);
             }
         }
-        if(j<nums2.size()){
-            while(j<nums2.size()){
+        if (j < nums2.size()) {
+            while (j < nums2.size()) {
                 nums.push_back(nums2[j++]);
             }
         }
-        int mid=nums.size()/2;
-        if((nums.size()%2)==1){
-            result=nums[mid];
-        }
-        else{
-            result=nums[mid]+nums[mid-1];
-            result/=2;
+        int mid = nums.size() / 2;
+        if ((nums.size() % 2) == 1) {
+            result = nums[mid];
+        } else {
+            result = nums[mid] + nums[mid-1];
+            result /= 2;
         }
         return result;
     }
@@ -54,31 +70,63 @@ public:
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int N1=nums1.size();
-        int N2=nums2.size();
-        if (N1<N2) {
+        int N1 = nums1.size();
+        int N2 = nums2.size();
+        if (N1 < N2) {
             nums1.swap(nums2);//保证数组num1是最长的
-            swap(N1,N2);
+            swap(N1, N2);
         }
-        int k=(N1+N2-1)/2;//第k个元素，另外k必然比N2大
-        int low=0,high=(k>N2)?N2:k;
-        while(low<high){
-            int m2=(low+high)/2;
-            int m1=k-m2;
-            if(nums1[m1]<nums2[m2]){
-                high=m2;
-            }
-            else{
-                low=m2+1;
+        int k = (N1 + N2 - 1) / 2;//第k个元素，另外k必然比N2大
+        int low = 0, high = (k > N2) ? N2 : k;
+        while (low < high) {
+            int m2 = (low + high) / 2;
+            int m1 = k - m2;
+            if (nums1[m1] < nums2[m2]) {
+                high = m2;
+            } else {
+                low = m2 + 1;
             }
         }
-        int left=max(low>0? nums2[low-1]:INT_MIN, k-low<N1? nums1[k-low]:INT_MIN);
-        if((N1+N2)&1) return left;
-        int right=min(low<N2? nums2[low]:INT_MAX, k-low+1<N1? nums1[k-low+1]:INT_MAX);
-        double result=(double)(left+right)/2;
+        int left = max(low>0? nums2[low-1]:INT_MIN, k-low<N1? nums1[k-low]:INT_MIN);
+        if ((N1 + N2) & 1) 
+            return left;
+        int right = min(low < N2 ? nums2[low] : INT_MAX, k - low + 1 < N1 ? nums1[k-low+1] : INT_MAX);
+        double result = (double)(left + right)/2;
         /*这里必须加类型转换
         *补充一下，double a=1/3  a的结果为0.0 
         */
         return result;
     }
 };
+
+/*
+def findMedianSortedArrays(self, A, B):
+    l = len(A) + len(B)
+    if l % 2 == 1:
+        return self.kth(A, B, l // 2)
+    else:
+        return (self.kth(A, B, l // 2) + self.kth(A, B, l // 2 - 1)) / 2.   
+    
+def kth(self, a, b, k):
+    if not a:
+        return b[k]
+    if not b:
+        return a[k]
+    ia, ib = len(a) // 2 , len(b) // 2
+    ma, mb = a[ia], b[ib]
+    
+    # when k is bigger than the sum of a and b's median indices 
+    if ia + ib < k:
+        # if a's median is bigger than b's, b's first half doesn't include k
+        if ma > mb:
+            return self.kth(a, b[ib + 1:], k - ib - 1)
+        else:
+            return self.kth(a[ia + 1:], b, k - ia - 1)
+    # when k is smaller than the sum of a and b's indices
+    else:
+        # if a's median is bigger than b's, a's second half doesn't include k
+        if ma > mb:
+            return self.kth(a[:ia], b, k)
+        else:
+            return self.kth(a, b[:ib], k)
+*/

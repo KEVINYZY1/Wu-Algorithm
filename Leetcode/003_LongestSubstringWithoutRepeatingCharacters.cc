@@ -3,18 +3,32 @@
 #include<vector>
 using namespace std;
 
+/*最长不重复子串
+Given a string, find the length of the longest substring without repeating characters.
+
+Examples:
+
+Given "abcabcbb", the answer is "abc", which the length is 3.
+
+Given "bbbbb", the answer is "b", with the length of 1.
+
+Given "pwwkew", the answer is "wke", with the length of 3.
+
+Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+*/
+
 class Solution {
 public:
 //将dict数组视为一个简单的哈希表，存放s中的字符以及该字符在遍历中最后一次出现的位置的映射关系
     int lengthOfLongestSubstring(string s) {
-        vector<int>dict(256,-1);
-        int start=-1;
-        int maxLength=0;
-        for(int i=0;i<s.size();++i){
-            if(dict[s[i]]>start)//只有当s[i]已经出现过，才会为真
-                start=dict[s[i]];//更改最长子字符串的开始位置
-            dict[s[i]]=i;
-            maxLength=max(maxLength,i-start);
+        vector<int> dict(256,-1);
+        int start = -1;
+        int maxLength = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            if (dict[s[i]] > start)//只有当s[i]已经出现过，才会为真
+                start = dict[s[i]];//更改最长子字符串的开始位置
+            dict[s[i]] = i;
+            maxLength = max(maxLength, i - start);
         }
         return maxLength;
     }
@@ -62,3 +76,21 @@ public:
         return maxLength;
     }
 };
+
+/*
+class Solution:
+    # @return an integer
+    def lengthOfLongestSubstring(self, s):
+        start = maxLength = 0
+        usedChar = {}
+        
+        for i in range(len(s)):
+            if s[i] in usedChar and start <= usedChar[s[i]]:
+                start = usedChar[s[i]] + 1
+            else:
+                maxLength = max(maxLength, i - start + 1)
+
+            usedChar[s[i]] = i
+
+        return maxLength
+*/
