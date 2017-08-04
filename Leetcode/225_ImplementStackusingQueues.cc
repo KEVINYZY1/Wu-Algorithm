@@ -5,17 +5,16 @@ public:
     //利用2个队列，保证每次进入的元素在队列的第一位
     //保证2个队列里面有一个是空的。
     void push(int x) {  
-        if (queue1.empty())  
-        {  
+        if (queue1.empty()) { 
             queue1.push(x);  
-            while(!queue2.empty()){  
+            while (!queue2.empty()) {  
                 int tmp = queue2.front();  
                 queue2.pop();  
                 queue1.push(tmp);  
             }  
-        }else{  
+        } else {  
             queue2.push(x);  
-            while(!queue1.empty()){  
+            while (!queue1.empty()) {  
                 int tmp = queue1.front();  
                 queue1.pop();  
                 queue2.push(tmp);  

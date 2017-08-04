@@ -8,18 +8,18 @@ using namespace std;
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        if(nums.empty())
+        if (nums.empty())
             return 0;
-        const int len=nums.size();
+        const int len = nums.size();
         int result = 0;  
-        for(int i = 0; i<32; i++){  
+        for (int i = 0; i < 32; i++) {  
             int count = 0;   
-            int mask = 1<< i;  
-            for(int j=0; j<len; j++){  
-                if(nums[j] & mask)  
+            int mask = 1 << i;  
+            for (int j = 0; j < len; j++) {  
+                if (nums[j] & mask)  
                     count++;  
             }  
-          if(count %3)  
+            if (count % 3)  
                 result |= mask;  
         }  
         return result; 

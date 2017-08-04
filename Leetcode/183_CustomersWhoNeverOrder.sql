@@ -1,4 +1,3 @@
-# Write your MySQL query statement below
 SELECT Name AS Customers
 FROM Customers c  left join Orders o on c.Id=o.CustomerId
 WHERE o.CustomerId IS NULL;

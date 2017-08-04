@@ -36,24 +36,27 @@ private:
 class Solution {
 public:
     vector<vector<int> > permuteUnique(vector<int> &num) {
-        vector<vector<int>> allPer;
-        if(num.empty()) return allPer;
-        sort(num.begin(),num.end());
+        vector<vector<int> > allPer;
+        if (num.empty()) 
+            return allPer;
+        sort(num.begin(), num.end());
         vector<int> per;
-        vector<bool> used(num.size(),false);
+        vector<bool> used(num.size(), false);
         findPerUniq(num, used, per, allPer);
         return allPer;
     }
     
-    void findPerUniq(vector<int> &num, vector<bool> &used, vector<int> &per, vector<vector<int>> &allPer) {
-        if(per.size()==num.size()) {
+    void findPerUniq(vector<int> &num, vector<bool> &used, vector<int> &per, vector<vector<int> > &allPer) {
+        if (per.size() == num.size()) {
             allPer.push_back(per);
             return;
         }
         
-        for(int i=0; i<num.size(); i++) {
-            if(used[i]) continue;
-            if(i>0 && num[i]==num[i-1] && !used[i-1]) continue;
+        for (int i = 0; i < num.size(); i++) {
+            if (used[i]) 
+                continue;
+            if (i > 0 && num[i] == num[i-1] && !used[i - 1])//逆向思维
+                continue;
             used[i] = true;
             per.push_back(num[i]);
             findPerUniq(num, used, per, allPer);

@@ -21,18 +21,18 @@ public:
 private:
     //返回跨越中点的最大子数组之和
     int findMaxSumCrossSubarray(vector<int> prices, int low,int high){
-        int mid=(low+high)/2;
-        int rightMaxSum=0;
-        int tempSum=0;
-        for(int i=mid+1;i<=high;i++){
-            tempSum+=prices[i];
-            rightMaxSum=max(rightMaxSum,tempSum);
+        int mid = (low + high) / 2;
+        int rightMaxSum = 0;
+        int tempSum = 0;
+        for (int i = mid + 1; i <= high; i++) {
+            tempSum += prices[i];
+            rightMaxSum = max(rightMaxSum, tempSum);
         }
-        int leftMaxSum=0;
-        tempSum=0;
-        for(int i=mid-1;i>=low;i--){
-            tempSum+=prices[i];
-            leftMaxSum=max(leftMaxSum,tempSum);
+        int leftMaxSum = 0;
+        tempSum = 0;
+        for (int i = mid - 1; i >= low; i--) {
+            tempSum += prices[i];
+            leftMaxSum = max(leftMaxSum,tempSum);
         }
        int maxSum=(leftMaxSum+rightMaxSum+prices[mid]);
        return maxSum<0?0:maxSum;

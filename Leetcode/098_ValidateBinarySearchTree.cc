@@ -1,4 +1,5 @@
-#include<cstdlib>
+#include <cstdlib>
+#include <climits>
 using namespace std;
 
 struct TreeNode {
@@ -34,8 +35,10 @@ public:
     }
     
     bool validateBST(TreeNode *root, int minVal, int maxVal) {
-        if(!root) return true;
-        if(root->val<=minVal || root->val>=maxVal) return false;
+        if (!root) 
+            return true;
+        if (root->val <= minVal || root->val >= maxVal) 
+            return false;
         return validateBST(root->left, minVal, root->val) && validateBST(root->right, root->val, maxVal);
     }
 };

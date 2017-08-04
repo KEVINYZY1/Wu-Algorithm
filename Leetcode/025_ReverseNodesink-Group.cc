@@ -13,53 +13,53 @@ struct ListNode {
 class Solution1 {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        vector<ListNode*>lists;
+        vector<ListNode*> lists;
         lists.push_back(head);
-        int count=k;
-        while(head){
-            head=head->next;
+        int count = k;
+        while (head) {
+            head = head->next;
             count--;
-            if(count==1){
-                if(head==NULL)
+            if (count == 1) {
+                if (head == NULL)
                     break;
                 lists.push_back(head->next);
-                head->next=NULL;
-                head=lists[lists.size()-1];
-                count=k;
+                head->next = NULL;
+                head = lists[lists.size() - 1];
+                count = k;
             }
         }
         //至此，链表被拆分为k个元素一组的单链表，放在链表数组lists中
-        for(int i=0;i<lists.size()-1;++i){
-            lists[i]=reverse(lists[i]);
+        for (int i = 0; i < lists.size() - 1; ++i) {
+            lists[i] = reverse(lists[i]);
         }
         //判断最后一个链表是否有k个，有的话，则也要逆序
-        int tempCount=0;
-        ListNode*tempHead=lists[lists.size()-1];
-        while(tempHead){
-            tempHead=tempHead->next;
+        int tempCount = 0;
+        ListNode* tempHead = lists[lists.size() - 1];
+        while (tempHead) {
+            tempHead = tempHead->next;
             tempCount++;
         }
-        if(tempCount==k){
-            lists[lists.size()-1]=reverse(lists[lists.size()-1]);
+        if (tempCount == k) {
+            lists[lists.size() - 1] = reverse(lists[lists.size() - 1]);
         }
         //合并链表数组
-        tempHead=lists[0];
-        for(int i=0;i<lists.size()-1;++i){
-            while(tempHead->next){
-                tempHead=tempHead->next;
+        tempHead = lists[0];
+        for (int i = 0; i < lists.size() - 1; ++i) {
+            while (tempHead->next) {
+                tempHead = tempHead->next;
             }
-            tempHead->next=lists[i+1];
+            tempHead->next = lists[i + 1];
         }
         return lists[0];
     }
 private:
-    ListNode* reverse(ListNode*head){
-        ListNode* prev=NULL;
-        while(head){
-            ListNode*temp=prev;
-            prev=head;
-            head=head->next;
-            prev->next=temp;
+    ListNode* reverse(ListNode* head) { 
+        ListNode* prev = NULL;
+        while (head) {
+            ListNode* temp = prev;
+            prev = head;
+            head = head->next;
+            prev->next = temp;
         }
         return prev;
     }
@@ -89,13 +89,13 @@ public:
     }
 private:
 //灵活使用逆转链表
-    ListNode* reverse(ListNode*head,ListNode*tail){
-        ListNode* prev=tail;
-        while(head){
-            ListNode*temp=prev;
-            prev=head;
-            head=head->next;
-            prev->next=temp;
+    ListNode* reverse(ListNode* head, ListNode* tail) {
+        ListNode* prev = tail;
+        while(head) {
+            ListNode* temp = prev;
+            prev = head;
+            head = head->next;
+            prev->next = temp;
         }
         return prev;
     }

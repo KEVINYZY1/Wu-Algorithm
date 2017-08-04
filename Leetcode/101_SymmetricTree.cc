@@ -50,20 +50,20 @@ public:
 */
 class Solution2 {
 public:
-    bool isSymmetric(TreeNode *root){  
-        if(root==NULL)
+    bool isSymmetric(TreeNode *root) {  
+        if (root == NULL)
             return true;
         return helpSymmetric(root->left, root->right);
     }
 private:
-    bool helpSymmetric(TreeNode *l, TreeNode *r){
-        if(l==NULL && r==NULL)
+    bool helpSymmetric(TreeNode *l, TreeNode *r) {
+        if (l == NULL && r == NULL)
             return true;
-        if(l==NULL)
+        if (l == NULL)
             return false;
-        if(r==NULL)
+        if (r == NULL)
             return false;
-        if(l->val != r->val)
+        if (l->val != r->val)
             return false;
         return helpSymmetric(l->left, r->right) && helpSymmetric(l->right, r->left);
     }

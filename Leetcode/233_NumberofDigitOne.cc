@@ -12,15 +12,15 @@ ab * 100，表示当ab这两位在0~ab-1范围内时，de可以从0~99取值
 class Solution {
 public:
     int countDigitOne(int n) {
-        if(n<1)
+        if (n < 1)
             return 0;
         long long exp = 1;//小心溢出
         long long ans = 0; 
-        while(n / exp){
+        while (n / exp) {
             ans += n / (exp * 10) * exp;
-            if(n % (exp * 10) / exp  > 1) 
+            if (n % (exp * 10) / exp  > 1) 
                 ans += exp;
-            else if(n % (exp * 10) / exp == 1) 
+            else if (n % (exp * 10) / exp == 1) 
                 ans += (n % exp + 1);
             exp *= 10;
         }

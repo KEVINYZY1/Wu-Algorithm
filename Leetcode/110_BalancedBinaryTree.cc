@@ -1,4 +1,5 @@
-#include<cstdlib>
+#include <cstdlib>
+#include <algorithm>
 using namespace std;
 
 struct TreeNode {
@@ -13,23 +14,23 @@ struct TreeNode {
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        if(root==NULL)
+        if (root == NULL)
             return true;
-        int lD=getDepth(root->left);
-        int rD=getDepth(root->right);
-        int def=lD-rD;
-        if(def<-1||def>1)
+        int lD = getDepth(root->left);
+        int rD = getDepth(root->right);
+        int def = lD - rD;
+        if (def < -1 || def > 1)
             return false;
-        return isBalanced(root->left)&&isBalanced(root->right);
+        return isBalanced(root->left) && isBalanced(root->right);
     }
 private:
 //获取二叉树的深度
-    int getDepth(TreeNode* t){
-        if(t==NULL)
+    int getDepth(TreeNode* t) {
+        if (t == NULL)
             return 0;
-        int leftDepth=getDepth(t->left);
-        int rightDepth=getDepth(t->right);
-        return (leftDepth>rightDepth)?(leftDepth+1):(rightDepth+1);
+        int leftDepth = getDepth(t->left);
+        int rightDepth = getDepth(t->right);
+        return (leftDepth > rightDepth) ? (leftDepth + 1) : (rightDepth + 1);
     }
 };
 
@@ -38,13 +39,15 @@ private:
 class Solution2 {
 public:
     bool isBalanced(TreeNode *root, int &height)  {  
-        if(!root)   
+        if (!root)   
             return true;  
-        int left=0,right=0;  
-        if(!isBalanced(root->left,left)) return false;  
-        if(!isBalanced(root->right,right)) return false;  
-        if(abs(left-right) > 1) return false;  
-        height = max(left,right) + 1;  
+        int left = 0, right = 0;  
+        if (!isBalanced(root->left, left)) 
+            return false;  
+        if (!isBalanced(root->right, right)) 
+            return false;  
+        if (abs(left - right) > 1) return false;  
+        height = max(left, right) + 1;  
         return true;  
     }  
 };

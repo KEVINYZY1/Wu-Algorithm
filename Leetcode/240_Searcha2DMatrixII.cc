@@ -6,19 +6,18 @@ using namespace std;
 //因为右上到左下，有递增递减两个方向，可以做出选择。而左上到右下则不可以
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        const int rows=matrix.size();
-        if(!rows)return false;
-        const int colunms=matrix[0].size();
-        int x=0,y=colunms-1;//右上角
-        while(x<rows&&y>=0){
-            if(matrix[x][y]>target){
+    bool searchMatrix(vector<vector<int> >& matrix, int target) {
+        const int rows = matrix.size();
+        if (!rows)
+            return false;
+        const int colunms = matrix[0].size();
+        int x = 0, y = colunms - 1;//右上角
+        while (x < rows && y >= 0) {
+            if (matrix[x][y] > target) {
                 y--;
-            }
-            else if (matrix[x][y]<target){
+            } else if (matrix[x][y] < target) {
                 x++;
-            }
-            else {
+            } else {
                 return true;
             }
         }

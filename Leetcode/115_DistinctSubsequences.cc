@@ -12,7 +12,7 @@ public:
     int numDistinct(string s, string t) {//s和t的位置要注意，是t去匹配s
         if(s.empty())
             return 0;
-        int count=0;
+        int count = 0;
         const int lenS=s.size();
         const int lenT=t.size();
         vector<vector<int>>dp(lenT+1,vector<int>(lenS+1,0));
