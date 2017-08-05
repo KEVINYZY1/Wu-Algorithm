@@ -9,17 +9,17 @@ using namespace std;
 class Solution {
 public:
     int FindGreatestSumOfSubArray(vector<int> array) {
-    	int result=0;
-        if(array.empty())
+    	int result = 0;
+        if (array.empty())
             return result;
-        const int len=array.size();
-        result=array[0];
-        int temp=result;
-        for(int i=1;i<len;i++){
-            if(temp>=0)
-                temp+=array[i];
-            else temp=array[i];
-            result=max(result,temp);
+        const int len = array.size();
+        result = array[0];
+        int temp = result;
+        for(int i = 1; i < len; i++) {
+            if (temp >= 0)
+                temp += array[i];
+            else temp = array[i];
+            result = max(result, temp);
         }
         return result;
     }

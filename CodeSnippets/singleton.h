@@ -7,7 +7,7 @@ public:
         if (instance == NULL) {
             lock.lock();
             if (instance == NULL) {
-                instance = new T;
+                instance = new T;//考虑cpu的乱序执行，volatile是否可以阻止
             }
             lock.unlock();
         }
@@ -16,7 +16,7 @@ public:
 private:
     Singleton() {}
     ~Singleton() {
-        if(instance != NULL)
+        if (instance != NULL)
             delete instance;
     }
     //保证单例模式不可拷贝

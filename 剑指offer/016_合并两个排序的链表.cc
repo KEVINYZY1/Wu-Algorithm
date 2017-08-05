@@ -12,8 +12,7 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* Merge(ListNode* pHead1, ListNode* pHead2)
-    {
+    ListNode* Merge(ListNode* pHead1, ListNode* pHead2) {
         if (pHead1 == NULL)
             return pHead2;
         if (pHead2 == NULL)

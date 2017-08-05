@@ -5,44 +5,27 @@ using namespace std;
 class Solution {
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        if(obstacleGrid.empty())
-            return 0;
-        if(obstacleGrid[0].empty())
-            return 0;
-        if(obstacleGrid[0][0]==1)//出发点就是障碍，智障吧
-            return 0;
-        //将第一行和第一列设置一下，注意一旦有障碍物，则都置0
-        for(int i=0;i<obstacleGrid.size();i++){
-            if(obstacleGrid[i][0]==0)
-                obstacleGrid[i][0]=1;
-            else {
-                obstacleGrid[i][0]=0;
-                while(i<obstacleGrid.size()){
-                    obstacleGrid[i][0]=0;
-                    i++;
-                }
+        const int m = obstacleGrid.size();
+        const int n = obstacleGrid[0].size();
+        vector<vector<int>> dp(m, vector<int>(n));
+        for (int i = 0; i < n; ++i) {
+            if (obstacleGrid[0][i] == 1) {
+                break;
+            }
+            dp[0][i] = 1;
+        }
+        for (int i = 0; i < m; ++i) {
+            if (obstacleGrid[i][0] == 1) {
+                break;
+            }
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i < m; ++i) {
+            for (int j = 1; j < n; ++j) {
+                if (obstacleGrid[i][j] != 1)
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
             }
         }
-        for(int i=1;i<obstacleGrid[0].size();i++){
-            if(obstacleGrid[0][i]==0)
-                obstacleGrid[0][i]=1;
-            else {
-                obstacleGrid[0][i]=0;
-                while(i<obstacleGrid[0].size()){
-                    obstacleGrid[0][i]=0;
-                    i++;
-                }
-            }
-        }
-        //开始处理obstacleGrid
-        int m=0,n=0;
-        for(m=1;m<obstacleGrid.size();m++){
-            for(n=1;n<obstacleGrid[0].size();n++){
-                if(obstacleGrid[m][n]==1)//有障碍
-                    obstacleGrid[m][n]=0;
-                else obstacleGrid[m][n]=obstacleGrid[m-1][n]+obstacleGrid[m][n-1];
-            }
-        }
-        return obstacleGrid[obstacleGrid.size()-1][obstacleGrid[0].size()-1];
+        return dp[m - 1][n - 1];
     }
 };

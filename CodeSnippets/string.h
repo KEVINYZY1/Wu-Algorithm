@@ -14,8 +14,8 @@ public:
         strcpy(data_, str);
     }
     */
-    String(const char *str){
-        if(str == NULL) {
+    String(const char *str) {
+        if (str == NULL) {
             data_ = new char[1];
             data_[0] = '\0'; 
         } else {
@@ -43,6 +43,7 @@ public:
     /* Traditional:
     String& operator=(const String& rhs)
     {
+        这样做的好处，是可以保证异常安全性
         String tmp(rhs);
         swap(tmp);
         return *this;

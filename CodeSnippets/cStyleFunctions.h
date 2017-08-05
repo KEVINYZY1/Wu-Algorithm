@@ -87,7 +87,7 @@ void* memmove(void *dst, const void *src, size_t count) {
 //void指针要转成char指针，因为char指针才能++
 //安全检查 
     assert( (dst != NULL) && (src != NULL) ); 
-    char *pdst = (char *)dst; 
+    char *pdst = (char*)dst; 
     const char *psrc = (const char *)src;
     char *tmp;  
     const char *s;  
@@ -97,14 +97,14 @@ void* memmove(void *dst, const void *src, size_t count) {
         tmp = pdst;  
         s = psrc;  
         while (count--)  
-                *tmp++ = *s++;  
+            *tmp++ = *s++;  
     } else {  
-            tmp = pdst;  
-            tmp += count;  
-            s = psrc;  
-            s += count;  
-            while (count--)  
-                *--tmp = *--s;  
+        tmp = pdst;  
+        tmp += count;  
+        s = psrc;  
+        s += count;  
+        while (count--)  
+            *--tmp = *--s;  
     }  
     return pdst;  
 }  

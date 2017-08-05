@@ -15,10 +15,10 @@ public:
         sort(numbers.begin(), numbers.end(), [](int l, int r){
             string sl = to_string(l);
             string sr = to_string(r);
-            string lr = sl+sr;
-            string rl = sr+sl;
+            string lr = sl + sr;
+            string rl = sr + sl;
             int num = strcmp(lr.c_str(), rl.c_str());
-            return num>=0?false:true;
+            return num >= 0 ? false : true;
         });
         for (int i = 0; i < numbers.size(); i++) {
             s += to_string(numbers[i]);

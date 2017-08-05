@@ -13,12 +13,12 @@ using namespace std;
 //好后缀规则：当字符失配时，后移位数 = 好后缀在模式串中的位置 - 好后缀在模式串上一次出现的位置，且如果好后缀在模式串中没有再次出现，则为-1。
 //每次后移这两个规则之中的较大值。这两个规则的移动位数，只与模式串有关，与原文本串无关。
 //这里的实现只考虑了坏字符串的规则！
-static int SIZEALPH=256;  //字母表的大小
+static int SIZEALPH1 = 256;  //字母表的大小
 class BoyerMoore{
     public:
-        BoyerMoore(string& pat):pat_(pat), next_(SIZEALPH,0){
+        BoyerMoore(string& pat):pat_(pat), next_(SIZEALPH1, 0){
             //构造next数组
-            for (int c = 0; c < SIZEALPH; c++)
+            for (int c = 0; c < SIZEALPH1; c++)
                 next_[c] = -1;//如果"坏字符"不包含在模式串之中，则最右出现位置为-1。
             for (int j = 0; j < pat.size(); j++)
                 next_[pat[j]] = j;//坏字符在模式串中最右出现的位置
@@ -27,7 +27,7 @@ class BoyerMoore{
         int search(string &txt){
             if(txt.empty())
                 return -1;
-            int skip=0;
+            int skip = 0;
             for(int i=0; i<=txt.size()-pat_.size(); i+=skip){
                 skip=0;
                 for(int j=pat_.size()-1; j>=0; j--){//倒序

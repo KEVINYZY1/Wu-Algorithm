@@ -8,30 +8,35 @@ using namespace std;
 //选择一个待排序序列中的最小（大）值，这就是选择排序的本质。
 
 //调整堆，保持大顶堆的性质,参数i指向根结点
-void maxHeap(vector<int>&nums,int len,int i){
-    int largest=0,left=0,right=0;
-    left=2*i+1;right=2*i+2;
-    if(left>=len)return;
-    largest=left;
+void maxHeap(vector<int>& nums, int len, int i) {
+    int largest = 0, left = 0, right = 0;
+    left = 2 * i + 1; 
+    right = 2 * i + 2;
+    if (left >= len)
+        return;
+    largest = left;
     //利用短路求值，看似会下标越界，但左边负责判断
-    if(right<len&&nums[right]>nums[left])largest=right;
-    if(nums[i]<nums[largest]){
-        swap(nums[largest],nums[i]);
+    if (right < len && nums[right] > nums[left])
+        largest = right;
+    if (nums[i] < nums[largest]) {
+        swap(nums[largest], nums[i]);
         //自上而下调整堆
         maxHeap(nums, len, largest);
     }
 }
+
 //建立堆
 //关键，是从末尾有子节点的节点开始向顶点慢慢调整
-void createHeap(vector<int>&nums,int len){
-    for(int i=(len-1)*0.5;i>=0;--i){
+void createHeap(vector<int>& nums, int len) {
+    for (int i = (len - 1) * 0.5; i >= 0; --i) {
         maxHeap(nums, len, i);
     }
 }
-void heapSort(vector<int>&nums){
-    const int len=nums.size();
+
+void heapSort(vector<int>& nums) {
+    const int len = nums.size();
     createHeap(nums, len);
-    for(int i=len-1;i>0;--i){
+    for (int i = len - 1; i > 0; --i) {
         swap(nums[i], nums[0]);
         maxHeap(nums, i, 0);//第二个参数不能用len-1，则永远固定了长度
     }

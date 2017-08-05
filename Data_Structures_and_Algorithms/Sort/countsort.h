@@ -11,12 +11,12 @@ using namespace std;
  3.对所有的计数累加（从count中的第一个元素开始，每一项和前一项相加）
  4.反向填充目标数组：将每个元素i放在新数组的第count(i)项，每放一个元素就将count(i)减去1
  */
-void countSort(vector<int>&nums,int range){
+void countSort(vector<int>&nums,int range) {
     //由于输入在0~99，所以直接设个大小为100的数组，即可保存。
     //但如果输入范围不那么方便，考虑用哈希建立key-count的映射关系
-    vector<int>count(range+1,0);
-    const int len=nums.size();
-    for(int i=0;i<len;++i){
+    vector<int> count(range + 1, 0);
+    const int len = nums.size();
+    for (int i = 0; i < len; ++i) {
         ++count[nums[i]];
     }
     //并非正统的计数排序
@@ -29,14 +29,13 @@ void countSort(vector<int>&nums,int range){
         }
         if(k==len)break;
     }*/
-    for (int i = 1; i < len; i++)
-    {
-       count[i]=count[i]+count[i-1]; 
+    for (int i = 1; i < len; i++) {
+       count[i] = count[i] + count[i - 1]; 
     }
-    vector<int>result(len,0);
+    vector<int> result(len, 0);
     //i从尾到头迭代，保证了计数排序的稳定性！！
-    for(int i=len-1;i>=0;i--){
-        result[count[nums[i]]]=nums[i];
+    for(int i = len - 1; i >= 0; i--) {
+        result[count[nums[i]]] = nums[i];
         count[nums[i]]--;
     }
 }
@@ -44,23 +43,20 @@ void countSort(vector<int>&nums,int range){
 普通的计数排序，O(n)稳定的，也需要额外的数组空间
 算法导论8.2提出了in-place计数排序，牺牲了稳定性，也需要利用额外的数组空间，但是排序是in-place
 */
-void inPlaceCountSort(vector<int>&nums,int range){
-    vector<int>count(range+1,0);
-    for (int i = 0; i < nums.size(); i++)
-    {
+void inPlaceCountSort(vector<int>& nums, int range) {
+    vector<int> count(range + 1, 0);
+    for (int i = 0; i < nums.size(); i++) {
         count[nums[i]]++;
     }
-    for (int i = 1; i < range+1; i++)
-    {
-        count[i]+=count[i-1];
+    for (int i = 1; i < range + 1; i++) {
+        count[i] += count[i-1];
     }
-    vector<int>postion(count.begin(),count.end());
-    int i=0;
-    while (i < nums.size())
-    {
-        if(postion[nums[i]-1]<=i&&i<postion[nums[i]])
+    vector<int> postion(count.begin(), count.end());
+    int i = 0;
+    while (i < nums.size()) {
+        if(postion[nums[i]-1] <= i && i < postion[nums[i]])
             i++;
-        else{
+        else {
             swap(nums[i],nums[count[nums[i]-1]]);
             count[nums[i]]--;
         }

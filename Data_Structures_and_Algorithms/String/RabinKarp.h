@@ -19,7 +19,7 @@ using namespace std;
 //拉斯维加斯法，即验证一遍找到的字符串和被匹配的字符串。这样面对流输入的情况，会比较蛋疼。
 
 
-static int SIZEALPH=256;   //字母表的大小
+static int SIZEALPH3 = 256;   //字母表的大小
 
 class RabinKarp{
     public:
@@ -28,7 +28,7 @@ class RabinKarp{
             Q=4294967291ul;
             Rm=1;
             for (int i = 1; i <= sizePat_-1; i++)
-                Rm = (SIZEALPH * Rm) % Q;
+                Rm = (SIZEALPH3 * Rm) % Q;
             patHash_=hash(pat_, sizePat_);
         }
 
@@ -36,7 +36,7 @@ class RabinKarp{
         long hash(string &key, int size) { 
             long h = 0; 
             for (int j = 0; j < size; j++) 
-                h = (SIZEALPH*h + key[j]) % Q;
+                h = (SIZEALPH3*h + key[j]) % Q;
             return h;
         }
 
@@ -61,7 +61,7 @@ class RabinKarp{
             for (int i = sizePat_; i < n; i++) {
                 //关键，高效的求出右移一位之后字符串的哈希值！！
                 txtHash = (txtHash + Q - Rm*txt[i-sizePat_] % Q) % Q; 
-                txtHash = (txtHash*SIZEALPH + txt[i]) % Q; 
+                txtHash = (txtHash*SIZEALPH3 + txt[i]) % Q; 
 
                 int offset = i - sizePat_ + 1;
                 if ((patHash_ == txtHash) && check(txt, offset))

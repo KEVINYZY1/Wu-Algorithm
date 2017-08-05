@@ -6,11 +6,11 @@ public:
     shared_ptr()
         : count_(NULL), data_(NULL) {
 
-        }
+    }
     explicit shared_ptr(T* data)
         : count_(new int(1)), data_(data) {
 
-        }
+    }
 
     ~shared_ptr() {
         destory();
@@ -31,9 +31,11 @@ public:
         count_ = rhs.count_;
         return *this;
     }
+
     T* operator->() {
         return data_;
     }
+    
     T& operator*() {
         return *data_;
     }

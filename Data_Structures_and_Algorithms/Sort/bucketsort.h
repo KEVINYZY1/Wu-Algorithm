@@ -11,21 +11,21 @@ using namespace std;
 
 //桶排序的平均时间复杂度为线性的O(N+C)，其中C=N*(logN-logM)。
 //如果相对于同样的N，桶数量M越大，其效率越高，最好的时间复杂度达到O(N)。 当然桶排序的空间复杂度 为O(N+M)，
-void bucketSort(vector<int>&nums){
+void bucketSort(vector<int>& nums) {
     //输入是0~99，故分为10个桶，每个桶的元素用快排排序
-    vector<vector<int> >bucket(10);
-    const int len=nums.size();
-    for (int i=0; i<len; ++i) {
-        bucket[nums[i]/10].push_back(nums[i]);
+    vector<vector<int> > bucket(10);
+    const int len = nums.size();
+    for (int i = 0; i < len; ++i) {
+        bucket[nums[i] / 10].push_back(nums[i]);
     }
-    for (int i=0;i<10;++i){
+    for (int i = 0; i < 10; ++i) {
         quickSort(bucket[i]);
     }
-    int k=0;
-    for (int i=0;i<10;++i){
-        int bucketLength=bucket[i].size();
-        for(int j=0;j<bucketLength;++j){
-            nums[k++]=bucket[i][j];
+    int k = 0;
+    for (int i = 0; i < 10; ++i) {
+        int bucketLength = bucket[i].size();
+        for (int j = 0; j < bucketLength; ++j) {
+            nums[k++] = bucket[i][j];
         }
     }
 }
