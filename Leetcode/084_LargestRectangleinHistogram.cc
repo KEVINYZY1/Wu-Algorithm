@@ -12,18 +12,18 @@ using namespace std;
 class Solution {
 public:
     int largestRectangleArea(vector<int>& heights) {
-        int maxRectangle=0;
-        if(heights.empty())
+        int maxRectangle = 0;
+        if (heights.empty())
             return maxRectangle;
         heights.push_back(0);//保证哪怕heights都是的递增的，最后也会触发计算
-        stack<int>index;
-        for(int i=0; i<heights.size(); i++){
-            if(index.empty() || heights[i]>heights[index.top()])
+        stack<int> index;
+        for (int i = 0; i < heights.size(); i++) {
+            if (index.empty() || heights[i] > heights[index.top()])
                 index.push(i);
             else{
-                int tempIndex=index.top();
+                int tempIndex = index.top();
                 index.pop();
-                maxRectangle=max(maxRectangle, heights[tempIndex]*(index.empty()? i: i-1-index.top()));
+                maxRectangle = max(maxRectangle, heights[tempIndex] * (index.empty() ? i: i - 1 - index.top()));
                 i--;
             }
         }
