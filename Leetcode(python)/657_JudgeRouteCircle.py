@@ -1,3 +1,5 @@
+import collections
+
 #弱智版
 class Solution(object):
     def judgeCircle(self, moves):
