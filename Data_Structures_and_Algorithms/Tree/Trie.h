@@ -10,7 +10,7 @@ public:
     TrieNode *children[26]; // 各个子节点
     TrieNode() {
         iskey = false;
-        for(int i=0; i<26; ++i)
+        for (int i = 0; i < 26; ++i)
             children[i] = NULL;
     }
 };
@@ -23,61 +23,61 @@ public:
     
     // 向字典树中插入字符串，不支持保存重复的
     void insert(string word) {
-        auto tempRoot=root;
-        for(int i=0; i<word.size(); i++){
-            int num=word[i]-'a';
-            if(tempRoot->children[num]==NULL){
-                tempRoot->children[num]=new TrieNode();
+        auto tempRoot = root;
+        for (int i = 0; i < word.size(); i++) {
+            int num = word[i] - 'a';
+            if (tempRoot->children[num] == NULL) {
+                tempRoot->children[num] = new TrieNode();
             }
-            tempRoot=tempRoot->children[num];
+            tempRoot = tempRoot->children[num];
         }
-        tempRoot->iskey=true;
+        tempRoot->iskey = true;
     }
 
     // 字典树中是否有该字符串
     bool search(string word) {
-        auto tempRoot=root;
-        for(int i=0; i<word.size(); i++){
-            int num=word[i]-'a';
-            if(tempRoot->children[num]==NULL){
+        auto tempRoot = root;
+        for (int i = 0; i < word.size(); i++) {
+            int num = word[i] - 'a';
+            if (tempRoot->children[num] == NULL) {
                 return false;
             }
-            tempRoot=tempRoot->children[num];
+            tempRoot = tempRoot->children[num];
         }
         return tempRoot->iskey;
     }
 
     //看字典树中是否含有该前缀的字符串
     bool startsWith(string prefix) {
-        auto tempRoot=root;
-        for(int i=0; i<prefix.size(); i++){
-            int num=prefix[i]-'a';
-            if(tempRoot->children[num]==NULL){
+        auto tempRoot = root;
+        for (int i = 0; i < prefix.size(); i++) {
+            int num = prefix[i] - 'a';
+            if (tempRoot->children[num] == NULL) {
                 return false;
             }
-            tempRoot=tempRoot->children[num];
+            tempRoot = tempRoot->children[num];
         }
         return true;
     }
 
     //返回字典树中与query有着最长前缀的字符串
-    string longestPrefixof(string query){
+    string longestPrefixof(string query) {
         string result;
-        if(query.empty())
+        if (query.empty())
             return result;
-        auto node=root;
-        int i=0;
-        const int len=query.size();
-        while(node!=NULL){
-            if(i>=len)
+        auto node = root;
+        int i = 0;
+        const int len = query.size();
+        while (node != NULL) {
+            if (i >= len)
                 return query;
-            if(node->children[query[i]-'a']!=NULL){
-                node=node->children[query[i]-'a'];
+            if (node->children[query[i] - 'a'] != NULL) {
+                node = node->children[query[i] - 'a'];
                 i++;
             }
             else break;
         }
-        return query.substr(0,i);
+        return query.substr(0, i);
     }
 
 private:
