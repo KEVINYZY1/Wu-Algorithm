@@ -1,6 +1,6 @@
 #ifndef _BUCKETSORT_H
 #define _BUCKETSORT_H
-#include"../Sort/quicksort.h"
+#include"../Sort/QuickSort.h"
 #include <vector>
 using namespace std;
 //桶排序
