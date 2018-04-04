@@ -31,25 +31,25 @@ D[0][0]就是最终答案。 此外，像许多其他"table-filling"问题一样
 */
 class Solution {
 public:
-    int calculateMinimumHP(vector<vector<int>>& dungeon) {
-        if(dungeon.empty())
+    int calculateMinimumHP(vector<vector<int> >& dungeon) {
+        if (dungeon.empty())
             return 0;
-        if(dungeon[0].empty())
+        if (dungeon[0].empty())
             return 0;
-        const int rows=dungeon.size();
-        const int columns=dungeon[0].size();
-        vector<vector<int>> table(rows, vector<int>(columns,0));
+        const int rows = dungeon.size();
+        const int columns = dungeon[0].size();
+        vector<vector<int> > table(rows, vector<int>(columns, 0));
         
-        table[rows-1][columns-1]=max(1-dungeon[rows-1][columns-1],1);
+        table[rows - 1][columns - 1] = max(1 - dungeon[rows - 1][columns - 1], 1);
         //最后一列
-        for(int i=rows-2;i>=0;i--)
-            table[i][columns-1]=max(table[i+1][columns-1]-dungeon[i][columns-1],1);//血至少是1
+        for (int i = rows - 2; i >= 0; i--)
+            table[i][columns - 1] = max(table[i + 1][columns - 1] - dungeon[i][columns - 1], 1);//血至少是1
         //最后一行
-        for(int i=columns-2;i>=0;i--)
-            table[rows-1][i]=max(table[rows-1][i+1]-dungeon[rows-1][i],1);
-        for(int i=rows-2;i>=0;i--)
-            for(int j=columns-2;j>=0;j--)
-                table[i][j]=max(min(table[i+1][j],table[i][j+1])-dungeon[i][j],1);
+        for (int i = columns - 2; i >= 0; i--)
+            table[rows - 1][i] = max(table[rows - 1][i + 1] - dungeon[rows - 1][i], 1);
+        for (int i = rows - 2; i >= 0; i--)
+            for (int j = columns - 2; j >= 0; j--)
+                table[i][j] = max(min(table[i + 1][j], table[i][j + 1]) - dungeon[i][j], 1);
         return table[0][0];
     }
 };

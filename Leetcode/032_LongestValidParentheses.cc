@@ -1,5 +1,6 @@
-#include<vector>
-#include<stack>
+#include <vector>
+#include <stack>
+#include <string>
 using namespace std;
 
 
@@ -7,24 +8,23 @@ using namespace std;
 class Solution1 {
 public:
     int longestValidParentheses(string s) {
-        int leftWindow=0;
-        int rightWindow=0;
-        int result=0;
-        for(int i=0;i<s.size();i++){
-            if(s[i]==')')
+        int leftWindow = 0;
+        int rightWindow = 0;
+        int result = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == ')')
                 continue;
-            stack<char>temp;
-            int j=i;
-            while(j<s.size()){
-                if(s[j]=='(')
+            stack<char> temp;
+            int j = i;
+            while (j < s.size()) {
+                if (s[j] == '(')
                     temp.push(s[i]);
-                else{
-                    if(!temp.empty()){
+                else {
+                    if (!temp.empty()) {
                         temp.pop();
-                        if(temp.empty())
-                            result=max(j-i+1,result);
-                    }
-                    else break;
+                        if (temp.empty())
+                            result = max(j - i + 1, result);
+                    } else break;
                 }
                 j++;
             }

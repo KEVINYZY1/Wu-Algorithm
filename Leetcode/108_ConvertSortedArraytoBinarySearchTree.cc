@@ -14,18 +14,18 @@ struct TreeNode {
 class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        if(nums.empty())
+        if (nums.empty())
             return NULL;
         return buildBST(nums, 0, nums.size());
     }
 private:
-    TreeNode* buildBST(vector<int>& nums, int start, int end){//左闭右开
-        if(start>=end)
+    TreeNode* buildBST(vector<int>& nums, int start, int end) {//左闭右开
+        if (start >= end)
             return NULL;
-        int mid=start+(end-start)/2;
-        TreeNode* root=new TreeNode(nums[mid]);
-        root->left=buildBST(nums, start, mid);
-        root->right=buildBST(nums, mid+1, end);
+        int mid = start + (end - start) / 2;
+        TreeNode* root = new TreeNode(nums[mid]);
+        root->left = buildBST(nums, start, mid);
+        root->right = buildBST(nums, mid+1, end);
         return root;
     }
 };

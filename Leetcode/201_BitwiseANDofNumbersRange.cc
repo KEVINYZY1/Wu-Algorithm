@@ -3,13 +3,13 @@
 class Solution {
 public:
     int rangeBitwiseAnd(int m, int n) {
-        int i=0;
-        while(m!=n){
-            m>>=1;
-            n>>=1;
+        int i = 0;
+        while (m != n) {
+            m >>= 1;
+            n >>= 1;
             i++;
         }
-        m<<=i;
+        m <<= i;
         return m;
     }
 };

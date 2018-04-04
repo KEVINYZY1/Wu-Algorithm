@@ -5,13 +5,13 @@ using namespace std;
 class Solution {
 public:
     int rob(vector<int>& nums) {
-        int taken=0;
-        int nontaken=0;
-        int maxprofit=0;
-        for(int i=0;i<nums.size();++i){
-            taken=nums[i]+nontaken;
-            nontaken=maxprofit;
-            maxprofit=max(taken,nontaken);
+        int taken = 0;
+        int nontaken = 0;
+        int maxprofit = 0;
+        for(int i = 0; i < nums.size(); ++i) {
+            taken = nums[i] + nontaken;
+            nontaken = maxprofit;
+            maxprofit = max(taken, nontaken);
         }
         return maxprofit;
     }

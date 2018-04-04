@@ -40,10 +40,10 @@ int main(){
     int n;
     cin >> n;
     vector<pair<int, int>> v(n);
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         cin >> v[i].first;
     }
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         cin >> v[i].second;
     }
     int gx, gy;

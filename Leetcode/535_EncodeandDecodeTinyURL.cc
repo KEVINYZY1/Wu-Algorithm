@@ -19,7 +19,7 @@ public:
         int num = stoi(shortUrl.substr(index + 1));
         return originUrls[num];
     }
-    
+   
 private:
     vector<string> originUrls;
 };

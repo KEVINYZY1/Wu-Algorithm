@@ -21,7 +21,7 @@ class Solution {
 public:
 //将dict数组视为一个简单的哈希表，存放s中的字符以及该字符在遍历中最后一次出现的位置的映射关系
     int lengthOfLongestSubstring(string s) {
-        vector<int> dict(256,-1);
+        vector<int> dict(256, -1);
         int start = -1;
         int maxLength = 0;
         for (int i = 0; i < s.size(); ++i) {
@@ -76,21 +76,3 @@ public:
         return maxLength;
     }
 };
-
-/*
-class Solution:
-    # @return an integer
-    def lengthOfLongestSubstring(self, s):
-        start = maxLength = 0
-        usedChar = {}
-        
-        for i in range(len(s)):
-            if s[i] in usedChar and start <= usedChar[s[i]]:
-                start = usedChar[s[i]] + 1
-            else:
-                maxLength = max(maxLength, i - start + 1)
-
-            usedChar[s[i]] = i
-
-        return maxLength
-*/

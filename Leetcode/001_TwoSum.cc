@@ -9,7 +9,7 @@ public:
 //要注意，输入的数组中可能有相同的数字,所以得将哈希的value设为数组来存储相同数值的不同下标
     vector<int> twoSum(vector<int>& nums, int target) {
         const int length = nums.size();
-        map<int,vector<int> > mNums;
+        map<int, vector<int> > mNums;
         for (int k = 0; k < length; ++k) {
             mNums[nums[k]].push_back(k);
         }
@@ -38,16 +38,3 @@ public:
         return result;
     }
 };
-
-/*
-class Solution(object):
-    def twoSum(self, nums, target):
-        if len(nums) <= 1:
-            return False
-        buff_dict = {} #哈希表
-        for i in range(len(nums)):
-            if nums[i] in buff_dict:
-                return [buff_dict[nums[i]], i]
-            else:
-                buff_dict[target - nums[i]] = i #把需要的差值放入哈希表中，机智啊
-*/

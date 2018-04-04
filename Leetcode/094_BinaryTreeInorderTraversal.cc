@@ -19,14 +19,14 @@ public:
         recursionInorderTraversal(result,root);
         return result;
     }
-    void recursionInorderTraversal(vector<int>&result,TreeNode* root){
-        if(!root)
+    void recursionInorderTraversal(vector<int>&result, TreeNode* root) {
+        if (!root)
             return;
-        if(root->left)
-            recursionInorderTraversal(result,root->left);
+        if (root->left)
+            recursionInorderTraversal(result, root->left);
         result.push_back(root->val);
-        if(root->right)
-            recursionInorderTraversal(result,root->right);
+        if (root->right)
+            recursionInorderTraversal(result, root->right);
     }
 };
 
@@ -35,22 +35,21 @@ class Solution2 {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> result;
-        if(!root)
+        if (!root)
             return result;
-        stack<TreeNode*>storeTreeNode;
+        stack<TreeNode*> storeTreeNode;
         storeTreeNode.push(root);
-        while(!storeTreeNode.empty()){
-            if(root->left){
+        while (!storeTreeNode.empty()) {
+            if (root->left) {
                 storeTreeNode.push(root->left);
-                root=root->left;
-            }
-            else{
-                auto node=storeTreeNode.top();
+                root = root->left;
+            } else {
+                auto node = storeTreeNode.top();
                 storeTreeNode.pop();
                 result.push_back(node->val);
-                if(node->right){
+                if (node->right) {
                     storeTreeNode.push(node->right);
-                    root=node->right;
+                    root = node->right;
                 }
             }
         }
@@ -78,21 +77,19 @@ public:
         TreeNode *current = NULL, *pre = NULL;
         vector<int> res;
         current = root;
-        while(current != NULL){                 
-            if(current->left == NULL){
+        while (current != NULL) {                 
+            if(current->left == NULL) {
                 res.push_back(current->val);
                 current = current->right;      
-            }    
-            else{
+            } else {
                 /* Find the inorder predecessor of current */
                 pre = current->left;
-                while(pre->right != NULL && pre->right != current)
+                while (pre->right != NULL && pre->right != current)
                     pre = pre->right;
-                if(pre->right == NULL){     /* Make current as right child of its inorder predecessor */
+                if (pre->right == NULL) {     /* Make current as right child of its inorder predecessor */
                     pre->right = current;
                     current = current->left;
-                }
-                else{
+                } else {
                 /* Revert the changes made in if part to restore the original 
                 tree i.e., fix the right child of predecssor */   
                     pre->right = NULL;
